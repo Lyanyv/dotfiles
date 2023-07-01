@@ -1,0 +1,81 @@
+{
+  "suggest.minTriggerInputLength": 2,
+  "suggest.virtualText": true,
+  "suggest.enableFloat": true,
+  "coc.preferences.jumpCommand": "tabe",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "semanticTokens.enable": false,
+  // pyright ×: bad highlight
+  // "[python]" : { "semanticTokens.enable": true },
+
+  "list.floatPreview": true,
+  "list.alignColumns": true,
+  "list.source.diagnostics.defaultOptions": [
+    "--auto-preview", "--no-quit", "--normal"
+  ],
+  "list.source.symbols.defaultOptions": [
+    "--auto-preview", "--no-quit", "--interactive"
+  ],
+
+  // coc-pairs
+  // quotes only pair when the character before is not a word character
+
+  // coc-highlight
+  "colors.enable": true,
+  "highlight.colors.enable": true,
+  "highlight.document.enable": false,
+
+  // coc-word
+  "coc.source.word.priority": 0,
+  "coc.source.word.filetypes": ["text", "tex", "markdown"],
+
+  // coc-snippets
+  "snippets.autoTrigger": true,
+  "snippets.ultisnips.enable": true,
+  "snippets.ultisnips.directories": [],
+  "snippets.snipmate.enable": false,
+  "snippets.massCode.enable": false,
+
+  // coc-pyright
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.linting.maxNumberOfProblems": 1024,
+  "python.linting.ruffEnabled": true,
+  "python.linting.ruffArgs": [ "--ignore=E126,E501,W503,W504" ],
+  "python.linting.ruffStdin": true,
+  "pyright.organizeimports.provider": "ruff",
+  "python.formatting.provider": "yapf",
+  "python.formatting.yapfArgs": [],
+
+  "pyright.completion.importSupport": true,
+  "pyright.completion.snippetSupport": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": false,
+  "pyright.inlayHints.variableTypes": false,
+  "pyright.inlayHints.functionReturnTypes": false,
+
+  // coc-texlab
+  // $HOME/.latexmkrc:
+  // $pdf_mode = 5;
+  // $postscript_mode = $dvi_mode = 0;
+  // $pdf_previewer = 'start SumatraPDF %O %S';
+  // $pdflatex = "pdflatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=-1 %O %S";
+  // $xelatex = "xelatex -file-line-error -halt-on-error -interaction=nonstopmode -no-pdf -synctex=-1 %O %S";
+  // # Always try to embed fonts, ignoring licensing flags, etc.
+  // $xdvipdfmx = "xdvipdfmx -E -o %D %O %S";
+  // $bibtex_use = 1;
+
+  // SumatraPDF:
+  // InverseSearchCmdLine = gvim --remote-silent +%l "%f"
+  // gvim -> nvr (neovim-remote)
+  "texlab.build.args": [ "-pv" ],
+  "texlab.forwardSearch.executable": "SumatraPDF",
+  "texlab.forwardSearch.args": [
+    "-reuse-instance", "%p", "-forward-search", "%f", "%l"
+  ],
+  "texlab.build.forwardSearchAfter": true,
+  "texlab.chktex.onOpenAndSave": true,
+  "texlab.chktex.onEdit": true
+}
