@@ -23,7 +23,7 @@ else
 endif
 
 " plugins
-" default plug path: stdpath('data') . '/plugged'
+" default plug path: `stdpath('data') . '/plugged'`
 call plug#begin()
 Plug 'junegunn/vim-plug'
 
@@ -74,9 +74,9 @@ Plug 'psliwka/vim-smoothie'
 Plug 'phaazon/hop.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " highlight, indent and fold
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set nofoldenable  " disable folding at startup
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+" set nofoldenable  " disable folding at startup
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-pairs',
@@ -166,9 +166,6 @@ command OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 autocmd FileType tex,markdown let b:coc_pairs = [['$', '$']]
 autocmd FileType tex nmap <buffer> <leader>d :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
-autocmd VimEnter * call coc#config('python', {'pythonPath': g:python3_host_prog})
-autocmd VimEnter * call coc#config('snippets',
-    \ {'userSnippetsDirectory' : stdpath('config').'\ultisnips'})
 
 " statusline
 set statusline=%#ModeMsg#%y
@@ -234,7 +231,7 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         disable = {},  -- filetypes
-        additional_vim_regex_highlighting = true,  -- XXX will disable syntax
+        additional_vim_regex_highlighting = false,  -- XXX will disable syntax
     },
     indent = { enable = true },
 }
@@ -246,6 +243,8 @@ nmap <leader>l <Cmd>HopLineMW<CR>
 map <leader>j <Cmd>HopVerticalAC<CR>
 map <leader>k <Cmd>HopVerticalBC<CR>
 
+call coc#config('python', {'pythonPath': g:python3_host_prog})
+call coc#config('snippets', {'userSnippetsDirectory' : stdpath('config').'\ultisnips'})
 " vim builtin plugins
 let g:loaded_netrw       = 0
 let g:loaded_netrwPlugin = 0
@@ -394,6 +393,15 @@ set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
+
+" highlight for markdown
+hi link @text.title1 markdownH1
+hi link @text.title2 markdownH2
+hi link @text.title3 markdownH3
+hi link @text.title4 markdownH4
+hi link @text.title5 markdownH5
+hi link @text.title6 markdownH6
+hi link @text.quote Comment
 
 " utils for tex
 let g:tex_flavor = "latex"
