@@ -10,12 +10,14 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b c f g h m q u v w x y z
+" b f g h m q u w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
 " or specify it explictly
 " let g:python3_host_prog="C:/softwares/anaconda3/envs/opencda/python.exe"
+let g:conda_env = 'opencda'
+
 if has('win32')
     let s:cmd_open = 'start'
 else
@@ -199,6 +201,28 @@ let g:mkdp_preview_options = {
 
 autocmd FileType markdown nmap <buffer> <F5> <Plug>MarkdownPreview
 
+" Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
+Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
+    \. g:conda_env . ' pip install .' }
+
+" usage:
+" 1. open a `*.ju.py` file
+" 2. `:JupyniumStartAndAttachToServer` to open Jupyter Notebook in Firefox
+" 3. `:JupyniumStartSync [filename]` to create an `Untitled.ipynb` file
+" 4. type `# %%` in nvim to create a code cell
+" note: do not make changes inside the browser, as the sync is only one-way
+
+" jupynium file format (*.ju.py or *.ju.*) follows Jupytext's percent format
+" code cell separator: `# %%`
+" magic commands: `# %time`
+" markdown cell: `# %% [md]` or `# %% [markdown]`
+"    in python, wrap the whole cell content as a multi-line string:
+"    # %% [md]
+"    """
+"    # This is a markdown heading
+"    This is markdown content
+"    """
+
 call plug#end()
 
 " set by lua
@@ -235,7 +259,27 @@ require'nvim-treesitter.configs'.setup {
     },
     indent = { enable = true },
 }
+require("jupynium").setup({
+    python_host = vim.g.python3_host_prog,
+    -- python_host = { "conda", "run", "--no-capture-output", "-n",
+    --                 vim.g.conda_env, "python" },
+    jupyter_command = "jupyter",
+    -- jupyter_command = { "conda", "run", "--no-capture-output", "-n",
+    --                     vim.g.conda_env, "jupyter" },
+    jupynium_file_pattern = { "*.ju.*" },
+    auto_start_server = { enable = true, file_pattern = { "*.ju.*" }, },
+    auto_attach_to_server = { enable = true, file_pattern = { "*.ju.*" }, },
+    auto_start_sync = { enable = false, file_pattern = { "*.ju.*" }, },
+    auto_download_ipynb = true,
+
+    use_default_keybindings = false,
+    textobjects = { use_default_keybindings = false, },
+    syntax_highlight = { enable = true, },
+    -- dim all cells except the current one
+    shortsighted = true,
+})
 EOF
+
 map s <Cmd>HopChar2<CR>
 nmap s <Cmd>HopChar2MW<CR>
 map <leader>l <Cmd>HopLine<CR>
@@ -245,6 +289,34 @@ map <leader>k <Cmd>HopVerticalBC<CR>
 
 call coc#config('python', {'pythonPath': g:python3_host_prog})
 call coc#config('snippets', {'userSnippetsDirectory' : stdpath('config').'\ultisnips'})
+
+function s:goto_the_one_cell_sep_above()
+    if match(getline('.'), '^# %%') == 0
+        lua require'jupynium.textobj'.goto_previous_cell_separator()
+    else
+        lua require'jupynium.textobj'.goto_current_cell_separator()
+    endif
+endfunction
+function s:set_keymap_for_jupynium()
+    " text-object key mappings
+    map <buffer> [j <Cmd>call <SID>goto_the_one_cell_sep_above()<CR>
+    map <buffer> ]j <Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
+    xmap <buffer> ij <Cmd>lua require'jupynium.textobj'.select_cell(false, false)<CR>
+    omap <buffer> ij <Cmd>lua require'jupynium.textobj'.select_cell(false, false)<CR>
+    xmap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
+    omap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
+    " command key mappings
+    " nmap <buffer> <F5> <Cmd>lua fn_wo_ext = vim.fn.expand '%:r:r' vim.cmd([[JupyniumStartSync ]] .. fn_wo_ext)<CR>
+    nmap <buffer> <F5> <Cmd>JupyniumStartSync<CR>
+    map <buffer> <S-CR> <Cmd>JupyniumExecuteSelectedCells<CR><Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
+    map <buffer> <leader>c <Cmd>JupyniumClearSelectedCellsOutputs<CR>
+    nmap <buffer> <leader>v <Cmd>JupyniumKernelHover<CR>
+endfunction
+augroup JupyniumKeyMap
+    autocmd!
+    autocmd BufWinEnter *.ju.* call s:set_keymap_for_jupynium()
+augroup END
+
 " vim builtin plugins
 let g:loaded_netrw       = 0
 let g:loaded_netrwPlugin = 0
@@ -262,6 +334,8 @@ function s:gruvbox_material_custom()
         \ g:gruvbox_material_background,
         \ g:gruvbox_material_foreground, {})
     call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5)
+    call gruvbox_material#highlight('JupyniumShortsighted',
+                \ palette.none, palette.bg_dim)
 endfunction
 augroup GruvboxMaterialCustom
     autocmd!
@@ -395,13 +469,18 @@ hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
 
 " highlight for markdown
-hi link @text.title1 markdownH1
-hi link @text.title2 markdownH2
-hi link @text.title3 markdownH3
-hi link @text.title4 markdownH4
-hi link @text.title5 markdownH5
-hi link @text.title6 markdownH6
-hi link @text.quote Comment
+hi! link @text.title1 markdownH1
+hi! link @text.title2 markdownH2
+hi! link @text.title3 markdownH3
+hi! link @text.title4 markdownH4
+hi! link @text.title5 markdownH5
+hi! link @text.title6 markdownH6
+hi! link @text.quote Comment
+
+" highlight for jupynium
+hi! link JupyniumCodeCellSeparator MatchParen
+hi! link JupyniumMarkdownCellSeparator MatchParen
+hi! link JupyniumMagicCommand Keyword
 
 " utils for tex
 let g:tex_flavor = "latex"
