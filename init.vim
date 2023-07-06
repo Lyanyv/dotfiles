@@ -56,15 +56,6 @@ let g:indent_blankline_show_current_context_start = v:true
 let g:indent_blankline_context_highlight_list = ['Label']
 let g:indent_blankline_viewport_buffer = 64
 
-autocmd VimEnter * call s:change_ib_autogroup()
-function s:change_ib_autogroup()
-    augroup IndentBlanklineAutogroup
-        autocmd! WinScrolled *
-        " autocmd WinScrolled * IndentBlanklineRefreshScroll!  " can't work
-        autocmd WinScrolled * IndentBlanklineRefresh!
-    augroup END
-endfunction
-
 Plug 'RRethy/vim-illuminate'
 " <A-p> & <A-n>: move previous/next reference
 " <A-i>: select the cursor-text-object
@@ -156,8 +147,8 @@ omap ac <Plug>(coc-classobj-a)
 " snippets and signature
 autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-let g:coc_snippet_prev = '<S-Tab>'
-let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<C-k>'
+let g:coc_snippet_next = '<C-j>'
 
 " command and autocmd
 command Format :call CocActionAsync('format')
@@ -172,9 +163,12 @@ autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 " statusline
 set statusline=%#ModeMsg#%y
 set statusline+=%#StatusLine#%<%F\ %h%m%r
-set statusline+=\ %#Label#%{get(b:,'coc_snippet_active',0)?'SNIPPET':''}
+set statusline+=\ %#Label#%{get(b:,'coc_snippet_active',0)?'SNIP':''}
 set statusline+=%#PmenuSel#%{get(b:,'coc_snippet_active',0)?'':get(b:,'coc_current_function','')}
 set statusline+=%#StatusLine#%=%-10.(%l,%c%V%)\ %P
+
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+" :LspCxxHlCursorSym
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() },
     \ 'for': ['markdown', 'vim-plug']}
@@ -254,7 +248,7 @@ require'nvim-treesitter.configs'.setup {
     prefer_git = true,
     highlight = {
         enable = true,
-        disable = {},  -- filetypes
+        disable = { 'c', 'cpp', },
         additional_vim_regex_highlighting = false,  -- XXX will disable syntax
     },
     indent = { enable = true },
@@ -462,6 +456,7 @@ autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
 
 " syntax
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
 " highlight
 set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
@@ -481,6 +476,19 @@ hi! link @text.quote Comment
 hi! link JupyniumCodeCellSeparator MatchParen
 hi! link JupyniumMarkdownCellSeparator MatchParen
 hi! link JupyniumMagicCommand Keyword
+
+" highlight for vim-lsp-cxx-highlight
+function s:custom_LspCxxHl()
+    hi! link LspCxxHlGroupEnumConstant Constant
+    hi! link LspCxxHlGroupNamespace Directory
+    hi! link LspCxxHlGroupMemberVariable Identifier
+    hi! link LspCxxHlSymVariable Identifier
+    hi! link LspCxxHlSymUnknownStaticField Identifier
+    " A name dependent on a template, usually a function but can also be a variable?
+    hi! link LspCxxHlSymDependentName Function
+    hi LspCxxHlSymParameter ctermfg=DarkCyan guifg=DarkCyan
+endfunction
+autocmd FileType c,cpp call s:custom_LspCxxHl()
 
 " utils for tex
 let g:tex_flavor = "latex"

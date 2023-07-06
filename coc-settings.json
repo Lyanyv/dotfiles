@@ -4,9 +4,6 @@
   "suggest.enableFloat": true,
   "coc.preferences.jumpCommand": "tabe",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "semanticTokens.enable": false,
-  // pyright ×: bad highlight
-  // "[python]" : { "semanticTokens.enable": true },
 
   "list.floatPreview": true,
   "list.alignColumns": true,
@@ -77,5 +74,33 @@
   ],
   "texlab.build.forwardSearchAfter": true,
   "texlab.chktex.onOpenAndSave": true,
-  "texlab.chktex.onEdit": true
+  "texlab.chktex.onEdit": true,
+
+  "semanticTokens.enable": false,
+  // pyright ×: bad highlight
+  // ccls ×: do not support
+  // "[c][cpp][python]": { "semanticTokens.enable": false },
+  // ccls
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [ "c", "cpp", "cuda", "objc", "objcpp" ],
+      "rootPatterns": [ ".ccls", "compile_commands.json" ],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache",
+          "format": "binary"
+        },
+        "index": { "multiVersion": 0 },
+        "highlight": { "lsRanges": true }
+        // If the project is compiled with MSVC,
+        // don't forget to set the compiler driver in .ccls to clang-cl
+        // "clang.extraArgs": [
+        //   "-fms-extensions",
+        //   "-fms-compatibility",
+        //   "-fdelayed-template-parsing"
+        // ]
+      }
+    }
+  }
 }
