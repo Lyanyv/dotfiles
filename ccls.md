@@ -53,7 +53,7 @@ Finally, add `*\ccls\Release` to the PATH Environment Variable.
 
 ## In `coc-settings.json`
 
-``` json
+``` jsonc
 {
   // ccls
   "languageserver": {
@@ -104,7 +104,8 @@ autocmd FileType c,cpp call s:custom_LspCxxHl()
 
 ## some references
 
-- [Project Setup](https://github.com/MaskRay/ccls/wiki/Project-Setup)
+- To generate `compile_commands.json` file:  
+[Project Setup/compile_commands.json](https://github.com/MaskRay/ccls/wiki/Project-Setup#compile_commandsjson)
 
 > `ccls` typically indexes an entire project.  
 > In order to work properly, `ccls` needs to obtain the source file list and their compilation command lines.  

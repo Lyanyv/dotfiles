@@ -51,6 +51,8 @@ In `init.vim`:
 
 After installing this plugin, run Neovim via Visual Studio's "x64 Native Tools Command Prompt" console.
 
+Then run `:TSInstall all` to compile all parsers.
+
 ## `neoclide/coc.nvim`
 
 - `Node.js` >= 14.14
@@ -70,4 +72,6 @@ After installing this plugin, run Neovim via Visual Studio's "x64 Native Tools C
 
 See the beginning of `init.vim`.
 
-Coming soon: `VimTweak` for `Neovim`
+# Bonus
+
+See `ccls.md`, `jupynium.nvim.md` and `VimTweak.md`.

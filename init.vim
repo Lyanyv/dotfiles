@@ -10,7 +10,7 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b f g h m q u w x y z
+" b f g h u w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -240,8 +240,9 @@ require'hop'.setup {
 }
 require'nvim-treesitter.configs'.setup {
     -- run Neovim via Visual Studio's "x64 Native Tools Command Prompt" console
-    ensure_installed = { 'bibtex', 'c', 'comment', 'cpp', 'latex', 'markdown',
-                         'markdown_inline', 'python', 'vim', 'vimdoc',
+    ensure_installed = { 'bibtex', 'c', 'comment', 'cpp', 'json', 'jsonc',
+                         'latex', 'markdown', 'markdown_inline', 'python',
+                         'query', 'vim', 'vimdoc',
     },
     sync_install = false,
     auto_install = false,
@@ -339,10 +340,20 @@ colorscheme gruvbox-material
 
 set guifont=等距更纱黑体\ Slab\ SC:h15
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
-" XXX: args of Nvy: --geometry=120x24 --position=320,160
-" args of Nvy: --maximize
+" args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')
-    set lines=128 columns=256
+    set lines=30 columns=120
+endif
+
+" VimTweak
+if has('win32') && has('gui_running')
+    runtime autoload/vimtweak2.vim
+    " recommended value: 200~255
+    autocmd UIEnter * call SetAlpha(221)
+    let g:topMost = 0
+    nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
+    let g:maximize = 0
+    nmap <leader>m <Cmd>let g:maximize = 1 - g:maximize<Bar>call EnableMaximize(g:maximize)<CR>
 endif
 
 " layout
@@ -463,6 +474,10 @@ hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
 
+" highlight for treesitter
+" hi! link TSVariable Identifier
+hi TSParameter ctermfg=DarkCyan guifg=DarkCyan
+
 " highlight for markdown
 hi! link @text.title1 markdownH1
 hi! link @text.title2 markdownH2
@@ -539,7 +554,7 @@ command DiffOrig
 autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$")
     \ && &ft !~# "commit" && !exists('b:jumped')
-    \ | exe "normal! g`\"" | call feedkeys('zzzv') | let b:jumped = 1 | endif
+    \ | exe "normal! g`\"" | call feedkeys('zzzv', 'n') | let b:jumped = 1 | endif
 
 " tips
 " to find user config dir `:echo stdpath('config')`
