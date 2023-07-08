@@ -74,4 +74,4 @@ See the beginning of `init.vim`.
 
 # Bonus
 
-See `ccls.md`, `jupynium.nvim.md` and `VimTweak.md`.
+See `coc-lists-ripgrep.md`, `ccls.md`, `jupynium.nvim.md` and `VimTweak.md`

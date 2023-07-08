@@ -2,7 +2,7 @@
 " file explorer, symbols outline
 " statusline, tabline, icons(nerd font)
 " text-object, multi cursors
-" debugger, fuzzy finder, git support
+" debugger, git support
 
 " multibyte charsets
 language message zh_CN.UTF-8
@@ -20,6 +20,12 @@ let g:conda_env = 'opencda'
 
 if has('win32')
     let s:cmd_open = 'start'
+    " `:h shell-powershell`
+    let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+    let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+    let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+    set shellquote= shellxquote=
 else
     let s:cmd_open = 'open'
 endif
@@ -32,7 +38,7 @@ Plug 'junegunn/vim-plug'
 Plug 'sainnhe/gruvbox-material'
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_foreground = 'mix'
-let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 
@@ -72,8 +78,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " set nofoldenable  " disable folding at startup
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-pairs',
-    \ 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
+let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-lists',
+    \ 'coc-pairs', 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
 
 " key mappings
 function s:check_backspace() abort
@@ -91,9 +97,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>e <Cmd>CocList diagnostics<CR>
 
-nmap <silent> \f <Cmd>CocList symbols<CR>
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>s <Plug>(coc-declaration)
 nmap <silent> <leader>i <Plug>(coc-implementation)
@@ -150,6 +154,14 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
 
+" coc-lists
+nmap <silent> \e <Cmd>CocList diagnostics<CR>
+nmap <silent> \s <Cmd>CocList symbols<CR>
+nmap <silent> \f <Cmd>CocList files<CR>
+nmap <silent> \g <Cmd>CocList grep<CR>
+nmap <silent> \l <Cmd>CocList lines<CR>
+nmap <silent> \r <Cmd>CocList mru<CR>
+
 " command and autocmd
 command Format :call CocActionAsync('format')
 autocmd FileType tex command! -buffer Format
@@ -193,7 +205,7 @@ let g:mkdp_preview_options = {
     \ 'toc': {'listType' : 'ul'},
     \ }  " toc.listType: ul for unordered, ol for ordered
 
-autocmd FileType markdown nmap <buffer> <F5> <Plug>MarkdownPreview
+autocmd FileType markdown nmap <buffer><silent> <F5> <Plug>MarkdownPreview
 
 " Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
 Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
@@ -317,6 +329,9 @@ let g:loaded_netrw       = 0
 let g:loaded_netrwPlugin = 0
 let g:loaded_tar         = 0
 let g:loaded_tarPlugin   = 0
+let g:loaded_zip         = 0
+let g:loaded_zipPlugin   = 0
+let loaded_gzip          = 0
 " plugins `editorconfig`, `man.lua` and `matchit` are enabled by default
 
 " ui and font
@@ -560,6 +575,7 @@ autocmd BufReadPost *
 " to find user config dir `:echo stdpath('config')`
 command Vimrc execute('CocConfig') | vsplit | e $MYVIMRC
 " `<Cmd>...<CR>` in key mappings
+" In Terminal mode, type `<C-\><C-N>` to go to Normal mode
 
 " `:TOhtml`
 " `:echo synIDattr(synID(line('.'), col('.'), 1), 'name')` or just `:Inspect`

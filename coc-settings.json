@@ -7,12 +7,19 @@
 
   "list.floatPreview": true,
   "list.alignColumns": true,
-  "list.source.diagnostics.defaultOptions": [
-    "--auto-preview", "--no-quit", "--normal"
-  ],
-  "list.source.symbols.defaultOptions": [
-    "--auto-preview", "--no-quit", "--interactive"
-  ],
+  "list.source.diagnostics.defaultOptions": [ "--auto-preview", "--no-quit", "--normal" ],
+  "list.source.symbols.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
+
+  // coc-lists
+  "session.saveOnVimLeave": false,
+  "list.source.files.defaultOptions": [ "--no-quit" ],
+  "list.source.files.defaultArgs": [ "-folder" ],
+  "list.source.grep.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
+  "list.source.grep.defaultArgs": [ "-folder", "-regex" ],
+  "list.source.grep.args": [],
+  "list.source.lines.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
+  "list.source.mru.defaultOptions": [ "--auto-preview", "--no-quit" ],
+  "list.source.mru.defaultArgs": [ "-A" ],
 
   // coc-pairs
   // quotes only pair when the character before is not a word character
