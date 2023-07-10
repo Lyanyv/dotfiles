@@ -344,6 +344,8 @@ function s:gruvbox_material_custom()
         \ g:gruvbox_material_background,
         \ g:gruvbox_material_foreground, {})
     call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5)
+    call gruvbox_material#highlight('HighlightedyankRegion',
+                \ palette.none, palette.bg_visual_blue)
     call gruvbox_material#highlight('JupyniumShortsighted',
                 \ palette.none, palette.bg_dim)
 endfunction
@@ -480,9 +482,6 @@ autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
 " xnoremap # y?\V<C-R>"<CR>
 " nnoremap & :&&<CR>
 
-" syntax
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
 " highlight
 set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
@@ -573,6 +572,7 @@ autocmd BufReadPost *
 
 " tips
 " to find user config dir `:echo stdpath('config')`
+autocmd BufReadPost coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit | e $MYVIMRC
 " `<Cmd>...<CR>` in key mappings
 " In Terminal mode, type `<C-\><C-N>` to go to Normal mode

@@ -58,3 +58,7 @@ if has('win32') && has('gui_running')
     nmap <leader>m <Cmd>let g:maximize = 1 - g:maximize<Bar>call EnableMaximize(g:maximize)<CR>
 endif
 ```
+
+## TODO
+
+**This plugin incurs about 100ms of startup time overhead...**  
