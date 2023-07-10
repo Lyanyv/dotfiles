@@ -10,7 +10,7 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b f g h u w x y z
+" b f g h u v w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -205,6 +205,11 @@ let g:mkdp_preview_options = {
     \ 'toc': {'listType' : 'ul'},
     \ }  " toc.listType: ul for unordered, ol for ordered
 
+" add `chrome.exe` to PATH Environment Variable
+function OpenBrowserInANewWindow(url)
+    silent execute 'silent !chrome --new-window ' . a:url
+endfunction
+let g:mkdp_browserfunc = 'OpenBrowserInANewWindow'
 autocmd FileType markdown nmap <buffer><silent> <F5> <Plug>MarkdownPreview
 
 " Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
@@ -317,7 +322,7 @@ function s:set_keymap_for_jupynium()
     nmap <buffer> <F5> <Cmd>JupyniumStartSync<CR>
     map <buffer> <S-CR> <Cmd>JupyniumExecuteSelectedCells<CR><Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
     map <buffer> <leader>c <Cmd>JupyniumClearSelectedCellsOutputs<CR>
-    nmap <buffer> <leader>v <Cmd>JupyniumKernelHover<CR>
+    nmap <buffer> <leader>i <Cmd>JupyniumKernelHover<CR>
 endfunction
 augroup JupyniumKeyMap
     autocmd!
@@ -573,7 +578,7 @@ autocmd BufReadPost *
 " tips
 " to find user config dir `:echo stdpath('config')`
 autocmd BufReadPost coc-settings.json set filetype=jsonc
-command Vimrc execute('CocConfig') | vsplit | e $MYVIMRC
+command Vimrc execute('CocConfig') | vsplit $MYVIMRC
 " `<Cmd>...<CR>` in key mappings
 " In Terminal mode, type `<C-\><C-N>` to go to Normal mode
 

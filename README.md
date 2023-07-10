@@ -3,13 +3,13 @@ My personal Neovim configuration for editing `python`, `c/cpp`, `markdown` and `
 # Screenshots
 
 vimrc and coc-settings
-![](./imgs/vimrc.png)
+![](./mds/imgs/vimrc.png)
 
 search workspace symbols of pytorch (after finishing index)
-![](./imgs/index-torch.png)
+![](./mds/imgs/index-torch.png)
 
 list all diagnostics info and locations of the current buffer, and move the cursor to the float window
-![](./imgs/diag_torch_and_move_cursor_to_float_win.png)
+![](./mds/imgs/diag_torch_and_move_cursor_to_float_win.png)
 
 # Requirements
 
@@ -40,10 +40,10 @@ $$
 In `init.vim`:
 
 `/^Plug` for vim plugins
+![](./mds/imgs/plugins.png)
 
 `/g:coc_global_extensions` for coc extensions
-
-`/ensure_installed` for treesitter parsers
+![](./mds/imgs/coc-extensions.png)
 
 ## `nvim-treesitter/nvim-treesitter`
 

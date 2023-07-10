@@ -74,7 +74,7 @@
   // SumatraPDF:
   // InverseSearchCmdLine = gvim --remote-silent +%l "%f"
   // gvim -> nvr (neovim-remote)
-  "texlab.build.args": [ "-pv" ],
+  "texlab.build.args": [ "-pvc" ],
   "texlab.forwardSearch.executable": "SumatraPDF",
   "texlab.forwardSearch.args": [
     "-reuse-instance", "%p", "-forward-search", "%f", "%l"
