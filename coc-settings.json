@@ -4,6 +4,7 @@
   "suggest.enableFloat": true,
   "coc.preferences.jumpCommand": "tabe",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  // "codeLens.enable": true,
 
   "list.floatPreview": true,
   "list.alignColumns": true,

@@ -10,7 +10,7 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b f g h u v w x y z
+" b g h u v w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -20,12 +20,16 @@ let g:conda_env = 'opencda'
 
 if has('win32')
     let s:cmd_open = 'start'
-    " `:h shell-powershell`
-    let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
-    let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
-    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
-    set shellquote= shellxquote=
+    function UsePowerShell()
+        " `:h shell-powershell`
+        let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+        let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command '
+            \ .'[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();'
+            \ .'$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+        let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+        let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+        set shellquote= shellxquote=
+    endfunction
 else
     let s:cmd_open = 'open'
 endif
@@ -105,6 +109,7 @@ nmap <silent> <leader>t <Plug>(coc-type-definition)
 nmap <silent> <leader>r <Plug>(coc-references)
 
 nmap <leader>n <Plug>(coc-rename)
+nmap <leader>f <Plug>(coc-codeaction-cursor)
 
 nnoremap <silent> K <Cmd>call <SID>show_doc()<CR>
 function s:show_doc()
@@ -404,7 +409,7 @@ function s:setlocal_textwidth()
 endfunction
 
 set display=lastline,uhex
-set list listchars=space:◦,trail:␣,eol:¬
+set list listchars=space:◦,trail:▓,eol:¬  " ␣░▒▓█
 set conceallevel=0
 
 set nospell spelllang=en,cjk
