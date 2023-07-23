@@ -196,7 +196,7 @@ let g:mkdp_refresh_slow = 1
 let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_preview_options = {
-    \ 'mkit': { 'breaks': v:true },
+    \ 'mkit': { 'breaks': v:false },
     \ 'katex': { 'minRuleThickness': 0.10, 'fleqn': v:true },
     \ 'uml': {},
     \ 'maid': {},
@@ -473,6 +473,7 @@ nmap <C-i> <Cmd>tag<CR>
 " insert
 imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
+nmap ： :
 
 " other
 nmap <leader><leader> <C-l>
@@ -543,22 +544,22 @@ endfunction
 function s:rearrange_linebreaks()
     let cliptext = getreg('+')
     let maps = [
-        \ [ 'e\.g\.'         , 'for example'            ],
-        \ [ 'i\.e\.'         , 'that is'                ],
-        \ [ 'etc\.'          , 'and so on.'             ],
-        \ [ 'et\s\{1,\}al\.' , 'and others.'            ],
-        \ [ 'ff\.'           , ' and following.'        ],
-        \ [ 'cf\.'           , 'see '                   ],
-        \ [ 'cp\.'           , 'see '                   ],
-        \ [ 'Q\.E\.D\.'      , 'that which was proven.' ],
-        \ [ 'viz\.'          , 'namely'                 ],
-        \ [ 'Fig\.'          , 'figure'                 ],
-        \ [ 'Tab\.'          , 'table'                  ],
-        \ [ '[\e\t\r\b\n]'   , ' '                      ],
-        \ [ '\s\{1,\}'       , ' '                      ],
-        \ [ '[?!\.]\@<=\s'   , '\n'                     ],
-        \ [ '^\s\{1,\}'      , ''                       ],
-        \ [ '\s\{1,\}$'      , ''                       ],
+        \ [ 'e\.g\.'               , 'for example'            ],
+        \ [ 'i\.e\.'               , 'that is'                ],
+        \ [ 'etc\.'                , 'and so on.'             ],
+        \ [ 'et[\s\n\r]\{1,\}al\.' , 'and others '            ],
+        \ [ 'ff\.'                 , ' and following.'        ],
+        \ [ 'cf\.'                 , 'see '                   ],
+        \ [ 'cp\.'                 , 'see '                   ],
+        \ [ 'Q\.E\.D\.'            , 'that which was proven.' ],
+        \ [ 'viz\.'                , 'namely'                 ],
+        \ [ 'Fig\.'                , 'figure'                 ],
+        \ [ 'Tab\.'                , 'table'                  ],
+        \ [ '[\e\t\r\b\n]'         , ' '                      ],
+        \ [ '\s\{1,\}'             , ' '                      ],
+        \ [ '[?!\.]\@<=\s'         , '\n'                     ],
+        \ [ '^\s\{1,\}'            , ''                       ],
+        \ [ '\s\{1,\}$'            , ''                       ],
         \ ]
     for [pat, sub] in maps
         let cliptext = substitute(cliptext, pat, sub, 'g')
