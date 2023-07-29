@@ -376,7 +376,7 @@ endif
 if has('win32') && has('gui_running')
     runtime autoload/vimtweak2.vim
     " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(221)
+    autocmd UIEnter * call SetAlpha(225)
     let g:topMost = 0
     nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
     let g:maximize = 0
@@ -413,6 +413,7 @@ set list listchars=space:◦,trail:▓,eol:¬  " ␣░▒▓█
 set conceallevel=0
 
 set nospell spelllang=en,cjk
+autocmd FileType text,tex,markdown setlocal spell
 set showmatch
 
 " other info
@@ -547,7 +548,7 @@ function s:rearrange_linebreaks()
         \ [ 'e\.g\.'               , 'for example'            ],
         \ [ 'i\.e\.'               , 'that is'                ],
         \ [ 'etc\.'                , 'and so on.'             ],
-        \ [ 'et[\s\n\r]\{1,\}al\.' , 'and others '            ],
+        \ [ 'et[ \t\n\r]\{1,\}al\.', 'and others '            ],
         \ [ 'ff\.'                 , ' and following.'        ],
         \ [ 'cf\.'                 , 'see '                   ],
         \ [ 'cp\.'                 , 'see '                   ],

@@ -27,6 +27,7 @@ Below the code block `// Set g:nvy global variable`:
 ```
 
 Then build `Nvy`:  
+> run these commands via Visual Studio's "x64 Native Tools Command Prompt" console  
 ``` dosbatch
 cd Nvy
 mkdir build
