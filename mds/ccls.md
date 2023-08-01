@@ -2,31 +2,31 @@
 
 ## Screenshots
 
-Highlight by vim naive syntax  
+Highlight by vim naive syntax
 ![](./imgs/ccls/naive_syntax.png)
 
-Highlight by `treesitter`  
+Highlight by `treesitter`
 ![](./imgs/ccls/treesitter.png)
 
-Highlight by `ccls`  
+Highlight by `ccls`
 ![](./imgs/ccls/ccls.png)
 
-Search workspace symbols  
+Search workspace symbols
 ![](./imgs/ccls/ccls_workspace_symbols.png)
 
-Hover  
+Hover
 ![](./imgs/ccls/ccls_hover.png)
 
 ## Build ccls
 
-- requirements:
-    - CMake >= 3.8
-    - A C++ compiler with C++17 support, e.g., MSVC >= 2017
-        - Microsoft Visual Studio Community 2019 ver. 16.11.26
-    - GNU Make or Ninja
-    - Clang+LLVM headers and libraries, version >= 7
+Requirements:  
+- CMake >= 3.8  
+- A C++ compiler with C++17 support, e.g., MSVC >= 2017  
+    - Microsoft Visual Studio Community 2019 ver. 16.11.26  
+- Ninja  
+- Clang+LLVM headers and libraries, version >= 7  
 
-1. Build Clang+LLVM by yourself
+### 1. Build Clang+LLVM by yourself
 
 Execute these commands via "Developer Command Prompt for VS" console  
 
@@ -37,10 +37,10 @@ cmake -Hllvm -BRelease -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=cl
 ninja -C Release clangFormat clangFrontendTool clangIndex clangTooling clang
 ```
 
-2. Then build ccls
+### 2. Then build ccls
 
 Do not forget to change `-DCMAKE_PREFIX_PATH`  
-> The clang resource directory is hard-coded into ccls at compile time.  
+> The clang resource directory is hard-coded into ccls at compile time  
 
 ``` dosbatch
 git clone --depth=1 --recursive https://github.com/MaskRay/ccls
@@ -49,7 +49,7 @@ cmake -H. -BRelease -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=cla
 ninja -C Release
 ```
 
-Finally, add `*\ccls\Release` to the PATH Environment Variable.  
+Finally, add `*\ccls\Release` to the PATH Environment Variable  
 
 ## In `coc-settings.json`
 
@@ -107,12 +107,11 @@ autocmd FileType c,cpp call s:custom_LspCxxHl()
 - To generate `compile_commands.json` file:  
 [Project Setup/compile_commands.json](https://github.com/MaskRay/ccls/wiki/Project-Setup#compile_commandsjson)
 
-> `ccls` typically indexes an entire project.  
-> In order to work properly, `ccls` needs to obtain the source file list and their compilation command lines.  
+> `ccls` typically indexes an entire project  
+> In order to work properly, `ccls` needs to obtain the source file list and their compilation command lines  
 
 - For more accurate/specific jump, i.e., cross reference extensions:  
 \$ccls/vars, \$ccls/call, \$ccls/inheritance, \$ccls/member, \$ccls/navigate  
 [LSP Extensions](https://github.com/MaskRay/ccls/wiki/LSP-Extensions)  
 [with coc.nvim](https://github.com/MaskRay/ccls/wiki/coc.nvim#cross-reference-extensions)  
-
-    - or using a tree viewer [`vim-ccls`](https://github.com/m-pilia/vim-ccls#commands)
+    - or using a tree viewer [`vim-ccls`](https://github.com/m-pilia/vim-ccls#commands)  

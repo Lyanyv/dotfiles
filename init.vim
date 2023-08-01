@@ -16,7 +16,7 @@ let mapleader = ' '
 let g:python3_host_prog='python'
 " or specify it explictly
 " let g:python3_host_prog="C:/softwares/anaconda3/envs/opencda/python.exe"
-let g:conda_env = 'opencda'
+" let g:conda_env = 'opencda'
 
 if has('win32')
     let s:cmd_open = 'start'
@@ -187,8 +187,9 @@ set statusline+=%#StatusLine#%=%-10.(%l,%c%V%)\ %P
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " :LspCxxHlCursorSym
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() },
-    \ 'for': ['markdown', 'vim-plug']}
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() },
+"     \ 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 0
 let g:mkdp_refresh_slow = 1
@@ -217,9 +218,9 @@ endfunction
 let g:mkdp_browserfunc = 'OpenBrowserInANewWindow'
 autocmd FileType markdown nmap <buffer><silent> <F5> <Plug>MarkdownPreview
 
-" Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
-Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
-    \. g:conda_env . ' pip install .' }
+Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
+" Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
+"     \. g:conda_env . ' pip install .' }
 
 " usage:
 " 1. open a `*.ju.py` file
@@ -283,6 +284,7 @@ require("jupynium").setup({
     jupyter_command = "jupyter",
     -- jupyter_command = { "conda", "run", "--no-capture-output", "-n",
     --                     vim.g.conda_env, "jupyter" },
+    default_notebook_URL = "localhost:8888",
     jupynium_file_pattern = { "*.ju.*" },
     auto_start_server = { enable = true, file_pattern = { "*.ju.*" }, },
     auto_attach_to_server = { enable = true, file_pattern = { "*.ju.*" }, },
@@ -365,7 +367,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ Slab\ SC:h15
+set guifont=等距更纱黑体\ Slab\ SC:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')

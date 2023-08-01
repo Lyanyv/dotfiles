@@ -43,21 +43,21 @@ Support CRLF line terminators (useful on `Windows`): `--crlf`
 
 Patterns:  
 - `-i/--ignore-case`,  `-S/--smart-case`  
-- `-F/--fixed-strings`: Treat the pattern as a literal string.  
-- `-w/--word-regexp`: Only show matches surrounded by word boundaries. `pattern` -> `\b(?:pattern)\b`  
-- `-U/--multiline`: Permit matches to span multiple lines.  
-- `-v/--invert-match`: Invert matching.  
+- `-F/--fixed-strings`: Treat the pattern as a literal string  
+- `-w/--word-regexp`: Only show matches surrounded by word boundaries, `pattern` -> `\b(?:pattern)\b`  
+- `-U/--multiline`: Permit matches to span multiple lines  
+- `-v/--invert-match`: Invert matching  
 
 Output format and style:  
-- `--stats`: Print statistics about this ripgrep search.  
-- `-c/--count`: Only show the count of matching lines for each file.  
-    - `--count-matches`: Only show the count of individual matches for each file.  
-- `-l/--files-with-matches`: Only show the paths with at least one match.  
+- `--stats`: Print statistics about this ripgrep search  
+- `-c/--count`: Only show the count of matching lines for each file  
+    - `--count-matches`: Only show the count of individual matches for each file  
+- `-l/--files-with-matches`: Only show the paths with at least one match  
     - cf. `--files-without-match`  
-- `--no-heading`: Don't group matches by each file.  
-- `-n/--line-number`, `--column`: Show line/column numbers.  
-- `-C/--context <NUM>`: Show NUM lines before and after each match.  
-    - `--context-separator <SEPARATOR>`: Set the context separator string.  
+- `--no-heading`: Don't group matches by each file  
+- `-n/--line-number`, `--column`: Show line/column numbers  
+- `-C/--context <NUM>`: Show NUM lines before and after each match  
+    - `--context-separator <SEPARATOR>`: Set the context separator string  
 
 ### Build
 
@@ -78,14 +78,14 @@ ripgrep 13.0.0 (rev f4d07b9cbd)
 +SIMD +AVX (runtime)
 ```
 
-Finally, add `*\target\release\rg` to the PATH Environment Variable.  
+Finally, add `*\target\release` to the PATH Environment Variable  
 
 ## `coc-lists`
 
 - `files`: search files by `rg`  
 - `grep`: grep text by `rg`  
 - `lines`: match lines of current buffer by regexp  
-    - Patterns are separated by space, pattern starts with '!' means nagitive  
+    - Patterns are separated by space, pattern starts with '!' means negative  
 - `mru`: most recent used files  
     - Use command `mru.validate` to remove files that not exists any more  
 
@@ -95,6 +95,11 @@ Finally, add `*\target\release\rg` to the PATH Environment Variable.
 
 ``` jsonc
 {
+  "list.floatPreview": true,
+  "list.alignColumns": true,
+  "list.source.diagnostics.defaultOptions": [ "--auto-preview", "--no-quit", "--normal" ],
+  "list.source.symbols.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
+
   // coc-lists
   "session.saveOnVimLeave": false,
   "list.source.files.defaultOptions": [ "--no-quit" ],

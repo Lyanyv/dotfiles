@@ -27,7 +27,8 @@ Below the code block `// Set g:nvy global variable`:
 ```
 
 Then build `Nvy`:  
-> run these commands via Visual Studio's "x64 Native Tools Command Prompt" console  
+> run these commands via Visual Studio's "x64 Native Tools Command Prompt"
+> console  
 ``` dosbatch
 cd Nvy
 mkdir build
@@ -41,7 +42,7 @@ ninja
 
 ## `vimtweak2.vim`
 
-Put the file in `stdpath('config') . '\autoload'`
+Put the file in `stdpath('config') . '\autoload'`  
 
 Ref: [skywind3000/vimtweak2.vim](https://gist.github.com/skywind3000/8eb41acd9d5175715694c765f92fa667/f95633bbab684f2438442535561dfb642ac7e659)
 
@@ -52,7 +53,7 @@ Ref: [skywind3000/vimtweak2.vim](https://gist.github.com/skywind3000/8eb41acd9d5
 if has('win32') && has('gui_running')
     runtime autoload/vimtweak2.vim
     " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(221)
+    autocmd UIEnter * call SetAlpha(225)
     let g:topMost = 0
     nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
     let g:maximize = 0

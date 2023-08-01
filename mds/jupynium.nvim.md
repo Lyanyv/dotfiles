@@ -21,13 +21,14 @@ Interact with multiple jupynium files
 
 1. `Neovim` >= v0.8  
 2. Firefox browser (and Mozilla `geckodriver`)  
+    - Add `geckodriver.exe` to PATH Environment Variable  
     > Other browsers are not supported due to their limitation with Selenium  
     > see [this issue](https://github.com/kiyoon/jupynium.nvim/issues/49#issuecomment-1443304753)  
 
 3. `Python` >= 3.7  
-    - `pip` >= 23.0 is recommended  
-    - `pip3 install --upgrade pip`  
+    - `pip` >= 23.0 is recommended: `pip3 install --upgrade pip`  
 4. `Jupyter Notebook` >= 6.2  
+    - **do not use notebook >= 7.0**  
 
 **Make sure that the following commands won't throw errors**  
 
@@ -86,7 +87,7 @@ function s:set_keymap_for_jupynium()
     nmap <buffer> <F5> <Cmd>JupyniumStartSync<CR>
     map <buffer> <S-CR> <Cmd>JupyniumExecuteSelectedCells<CR><Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
     map <buffer> <leader>c <Cmd>JupyniumClearSelectedCellsOutputs<CR>
-    nmap <buffer> <leader>v <Cmd>JupyniumKernelHover<CR>
+    nmap <buffer> <leader>i <Cmd>JupyniumKernelHover<CR>
 endfunction
 augroup JupyniumKeyMap
     autocmd!
@@ -108,6 +109,7 @@ require("jupynium").setup({
     jupyter_command = "jupyter",
     -- jupyter_command = { "conda", "run", "--no-capture-output", "-n",
     --                     vim.g.conda_env, "jupyter" },
+    default_notebook_URL = "localhost:8888",
     jupynium_file_pattern = { "*.ju.*" },
     auto_start_server = { enable = true, file_pattern = { "*.ju.*" }, },
     auto_attach_to_server = { enable = true, file_pattern = { "*.ju.*" }, },
@@ -125,8 +127,10 @@ require("jupynium").setup({
 ## Caution
 
 ``` vim
+Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
 Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
     \. g:conda_env . ' pip install .' }
 ```
 
-This may fail. You should install python package `jupynium` locally and manually then.  
+These commands may fail. You should install python package `jupynium` locally
+and manually then  
