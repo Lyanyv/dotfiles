@@ -79,7 +79,8 @@
   (list_marker_dot)
   (list_marker_parenthesis)
   (thematic_break)
-] @punctuation.special
+; ] @punctuation.special
+] @operator
 
 (task_list_marker_unchecked) @text.todo.unchecked
 (task_list_marker_checked) @text.todo.checked

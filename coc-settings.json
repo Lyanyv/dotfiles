@@ -68,7 +68,7 @@
   // $pdf_previewer = 'start SumatraPDF %O %S';
   // $pdflatex = "pdflatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=-1 %O %S";
   // $xelatex = "xelatex -file-line-error -halt-on-error -interaction=nonstopmode -no-pdf -synctex=-1 %O %S";
-  // # Always try to embed fonts, ignoring licensing flags, etc.
+  // # Always try to embed fonts, ignoring licensing flags
   // $xdvipdfmx = "xdvipdfmx -E -o %D %O %S";
   // $bibtex_use = 1;
 

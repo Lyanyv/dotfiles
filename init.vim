@@ -10,7 +10,7 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b g h u v w x y z
+" b e g h u v w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -24,8 +24,9 @@ if has('win32')
         " `:h shell-powershell`
         let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
         let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command '
-            \ .'[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();'
-            \ .'$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+            \ .'[Console]::InputEncoding=[Console]::OutputEncoding='
+            \ .'[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues'
+            \ .'[''Out-File:Encoding'']=''utf8'';'
         let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
         let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
         set shellquote= shellxquote=
@@ -75,7 +76,7 @@ let g:highlightedyank_highlight_duration = -1
 Plug 'godlygeek/tabular'
 Plug 'psliwka/vim-smoothie'
 Plug 'phaazon/hop.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 " highlight, indent and fold
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
@@ -98,9 +99,6 @@ imap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-d>"
 " <C-g>u breaks undo chain at current position
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
     \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>s <Plug>(coc-declaration)
@@ -160,12 +158,14 @@ let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
 
 " coc-lists
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> \e <Cmd>CocList diagnostics<CR>
 nmap <silent> \s <Cmd>CocList symbols<CR>
 nmap <silent> \f <Cmd>CocList files<CR>
 nmap <silent> \g <Cmd>CocList grep<CR>
 nmap <silent> \l <Cmd>CocList lines<CR>
-nmap <silent> \r <Cmd>CocList mru<CR>
+nmap <silent> \m <Cmd>CocList mru<CR>
 
 " command and autocmd
 command Format :call CocActionAsync('format')
@@ -174,7 +174,7 @@ autocmd FileType tex command! -buffer Format
 command OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 autocmd FileType tex,markdown let b:coc_pairs = [['$', '$']]
-autocmd FileType tex nmap <buffer> <leader>d :CocCommand latex.ForwardSearch<CR>
+autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 
 " statusline
@@ -273,7 +273,7 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         disable = { 'c', 'cpp', },
-        additional_vim_regex_highlighting = false,  -- XXX will disable syntax
+        additional_vim_regex_highlighting = false,  -- will disable syntax
     },
     indent = { enable = true },
 }
@@ -410,9 +410,8 @@ function s:setlocal_textwidth()
     setlocal wrapmargin=0
 endfunction
 
-set display=lastline,uhex
+set display=lastline,uhex conceallevel=0
 set list listchars=space:◦,trail:▓,eol:¬  " ␣░▒▓█
-set conceallevel=0
 
 set nospell spelllang=en,cjk
 autocmd FileType text,tex,markdown setlocal spell
@@ -473,10 +472,11 @@ nmap <C-o> <Cmd>pop<CR>
 " vim can't distinguish between `<Tab>` and `<C-i>`
 nmap <C-i> <Cmd>tag<CR>
 
-" insert
+" insert and cmdline
 imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
 nmap ： :
+" In Terminal mode, type `<C-\><C-N>` to go to Normal mode
 
 " other
 nmap <leader><leader> <C-l>
@@ -581,7 +581,7 @@ command DiffOrig
 " add `b:jumped` for neovim-remote
 autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$")
-    \ && &ft !~# "commit" && !exists('b:jumped')
+    \ && &ft !~# "commit\|rebase" && !exists('b:jumped')
     \ | exe "normal! g`\"" | call feedkeys('zzzv', 'n') | let b:jumped = 1 | endif
 
 " tips
@@ -589,7 +589,6 @@ autocmd BufReadPost *
 autocmd BufReadPost coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit $MYVIMRC
 " `<Cmd>...<CR>` in key mappings
-" In Terminal mode, type `<C-\><C-N>` to go to Normal mode
 
 " `:TOhtml`
 " `:echo synIDattr(synID(line('.'), col('.'), 1), 'name')` or just `:Inspect`
