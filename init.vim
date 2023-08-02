@@ -1,6 +1,6 @@
 " TODO:
 " file explorer, symbols outline
-" statusline, tabline, icons(nerd font)
+" statusline, tabline
 " text-object, multi cursors
 " debugger, git support
 
@@ -367,7 +367,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ Slab\ SC:h13
+set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')
