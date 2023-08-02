@@ -2,6 +2,7 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.virtualText": true,
   "suggest.enableFloat": true,
+  "suggest.formatItems": [ "kind", "abbr", "menu", "shortcut" ],
   "suggest.completionItemKindLabels": {
     "text": "",
     "method": "",
@@ -37,7 +38,12 @@
 
   "list.floatPreview": true,
   "list.alignColumns": true,
+  "list.selectedSignText": "",
   "list.source.diagnostics.defaultOptions": [ "--auto-preview", "--no-quit", "--normal" ],
+  "diagnostic.errorSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
   "list.source.symbols.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
 
   // coc-lists
