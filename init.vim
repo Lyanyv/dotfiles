@@ -82,7 +82,9 @@ Plug 'nvim-treesitter/nvim-treesitter'
 " set foldexpr=nvim_treesitter#foldexpr()
 " set nofoldenable  " disable folding at startup
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'master',
+            \ 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-lists',
     \ 'coc-pairs', 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
 
@@ -497,7 +499,7 @@ autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
 " nnoremap & :&&<CR>
 
 " highlight
-set pumblend=30 winblend=30
+" set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
