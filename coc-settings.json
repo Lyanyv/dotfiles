@@ -2,6 +2,8 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.virtualText": true,
   "suggest.enableFloat": true,
+  "suggest.asciiCharactersOnly": true,
+  "suggest.asciiMatch": false,
   "suggest.formatItems": [ "kind", "abbr", "menu", "shortcut" ],
   "suggest.completionItemKindLabels": {
     "text": "",

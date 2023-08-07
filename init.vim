@@ -357,7 +357,8 @@ function s:gruvbox_material_custom()
     let palette = gruvbox_material#get_palette(
         \ g:gruvbox_material_background,
         \ g:gruvbox_material_foreground, {})
-    call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5)
+    call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5, 'bold')
+    call gruvbox_material#highlight('CursorLineNr', palette.fg0, palette.bg0, 'bold')
     call gruvbox_material#highlight('HighlightedyankRegion',
                 \ palette.none, palette.bg_visual_blue)
     call gruvbox_material#highlight('JupyniumShortsighted',
