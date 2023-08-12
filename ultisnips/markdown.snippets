@@ -25,11 +25,19 @@
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 # Escaping '`', '{', '$' and '\'
 
-snippet cf "colored fonts in html"
+snippet img "insert image" b
+![$1](./imgs/$2)
+endsnippet
+
+snippet link "insert url" b
+[$1]($2)
+endsnippet
+
+snippet cf "colored fonts in html" b
 <font color="${1:tomato}" size="${2:4}">$3</font>
 endsnippet
 
-snippet eq "LaTeX equation, font size: Huge/huge/LARGE/Large/large/normalsize/small/footnotesize/scriptsize/tiny"
+snippet eq "LaTeX equation, font size: Huge/huge/LARGE/Large/large/normalsize/small/footnotesize/scriptsize/tiny" b
 \$\$
 \\${1:Large}\{
 \\begin\{equation\}

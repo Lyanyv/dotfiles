@@ -370,7 +370,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h15
+set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')
@@ -442,6 +442,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType c,cpp,json,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 set backspace=2
 set mouse=a mousemodel=popup mousehide  " Nvy doesn't support `mousehide`
+set mousescroll=ver:2,hor:4
 
 " key mappings
 " movement related
