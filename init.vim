@@ -78,9 +78,9 @@ Plug 'psliwka/vim-smoothie'
 Plug 'phaazon/hop.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 " highlight, indent and fold
-" set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
-" set nofoldenable  " disable folding at startup
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable  " disable folding at startup
 
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', { 'branch': 'master',
@@ -95,7 +95,6 @@ function s:check_backspace() abort
 endfunction
 inoremap <silent><expr> <Tab>
     \ coc#pum#visible() ? coc#pum#next(1) :
-    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
     \ <SID>check_backspace() ? "\<Tab>" : coc#refresh()
 imap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-d>"
 " <C-g>u breaks undo chain at current position
