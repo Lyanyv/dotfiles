@@ -5,7 +5,7 @@
 " debugger, git support
 
 " multibyte charsets
-language message zh_CN.UTF-8
+" language message zh_CN.UTF-8
 set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
@@ -43,6 +43,7 @@ Plug 'junegunn/vim-plug'
 Plug 'sainnhe/gruvbox-material'
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_foreground = 'mix'
+let g:gruvbox_material_statusline_style = 'mix'
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
@@ -51,7 +52,7 @@ let g:gruvbox_material_transparent_background = 0
 let g:gruvbox_material_dim_inactive_windows = 1
 let g:gruvbox_material_visual = 'red background'
 let g:gruvbox_material_current_word = 'reverse'
-let g:gruvbox_material_menu_selection_background = 'blue'
+let g:gruvbox_material_menu_selection_background = 'green'
 let g:gruvbox_material_spell_foreground = 'colored'
 let g:gruvbox_material_diagnostic_text_highlight = 1
 
@@ -179,11 +180,23 @@ autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 
 " statusline
-set statusline=%#ModeMsg#%y
-set statusline+=%#StatusLine#%<%F\ %h%m%r
-set statusline+=\ %#Label#%{get(b:,'coc_snippet_active',0)?'SNIP':''}
-set statusline+=%#PmenuSel#%{get(b:,'coc_snippet_active',0)?'':get(b:,'coc_current_function','')}
-set statusline+=%#StatusLine#%=%-10.(%l,%c%V%)\ %P
+set statusline=%#StatusLine#%(%y\ %)%<%F%(\ %h%m%r%)
+set statusline+=%#Label#%=%(%{get(g:,'coc_status','')}\ \|\ %)
+set statusline+=%#Function#%(%{get(b:,'coc_current_function','')}\ \|\ %)
+set statusline+=%#CocErrorSign#%-4.{CocDiagnosticsStatus('error')}
+set statusline+=%#CocWarningSign#%-4.{CocDiagnosticsStatus('warning')}
+set statusline+=%#CocInfoSign#%-4.{CocDiagnosticsStatus('information')}
+set statusline+=%#CocHintSign#%-4.{CocDiagnosticsStatus('hint')}
+set statusline+=%#StatusLine#%-14.(%l,%c%V%)\ %P
+
+function CocDiagnosticsStatus(key)
+    let info = get(b:, 'coc_diagnostic_info', {})
+    let signs = {'error': '', 'warning': '', 'information': '', 'hint': ''}
+    if !empty(info) && get(info, a:key, 0)
+        return signs[a:key] . ' ' . info[a:key]
+    else | return ' ' | endif
+endfunction
+autocmd User CocStatusChange redrawstatus
 
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " :LspCxxHlCursorSym
@@ -391,13 +404,12 @@ endif
 set title
 set signcolumn=number number norelativenumber numberwidth=4
 set colorcolumn=81 cursorline
+set laststatus=3
 set noruler  " since it's redefined
 
 " movement
 set scrolloff=0 nostartofline
 set virtualedit=block
-" FIXME: after scrolling, the jumplist gets filled with meaningless positions
-" solution: map `<C-o>` and `<C-i>` to jump in tagstack
 set jumpoptions=view
 
 " text display
@@ -470,10 +482,6 @@ nmap gR <C-w>R
 nmap gb <Cmd>bnext<CR>
 nmap gB <Cmd>bprevious<CR>
 " `gt` and `gT` for tabpages by default
-" tagstack, useful in vim helpfile
-nmap <C-o> <Cmd>pop<CR>
-" vim can't distinguish between `<Tab>` and `<C-i>`
-nmap <C-i> <Cmd>tag<CR>
 
 " insert and cmdline
 imap <C-Tab> <C-t>
@@ -592,6 +600,7 @@ autocmd BufReadPost *
 autocmd BufReadPost coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit $MYVIMRC
 " `<Cmd>...<CR>` in key mappings
+" vim can't distinguish between `<Tab>` and `<C-i>`, `<Esc>` and `<C-[>`
 
 " `:TOhtml`
 " `:echo synIDattr(synID(line('.'), col('.'), 1), 'name')` or just `:Inspect`
