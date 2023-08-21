@@ -180,7 +180,7 @@ autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 
 " statusline
-set statusline=%#StatusLine#%(%y\ %)%<%F%(\ %h%m%r%)
+set statusline=%#StatusLine#%(%y\ %)%<%f%(\ %h%m%r%)
 set statusline+=%#Label#%=%(%{get(g:,'coc_status','')}\ \|\ %)
 set statusline+=%#Function#%(%{get(b:,'coc_current_function','')}\ \|\ %)
 set statusline+=%#CocErrorSign#%-4.{CocDiagnosticsStatus('error')}
@@ -225,12 +225,12 @@ let g:mkdp_preview_options = {
     \ 'toc': {'listType' : 'ul'},
     \ }  " toc.listType: ul for unordered, ol for ordered
 
-" add `chrome.exe` to PATH Environment Variable
+" add `firefox.exe` to PATH Environment Variable
 function OpenBrowserInANewWindow(url)
-    silent execute 'silent !chrome --new-window ' . a:url
+    execute 'silent !firefox --new-window ' . a:url
 endfunction
 let g:mkdp_browserfunc = 'OpenBrowserInANewWindow'
-autocmd FileType markdown nmap <buffer><silent> <F5> <Plug>MarkdownPreview
+autocmd FileType markdown nmap <buffer> <F5> <Plug>MarkdownPreview
 
 Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
 " Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
@@ -382,7 +382,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
+set guifont=等距更纱黑体\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')

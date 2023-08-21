@@ -2,16 +2,16 @@ My personal Neovim configuration for editing `python`, `c/cpp`, `markdown` and `
 
 # Screenshots
 
-`vimrc` and `coc-settings`
+`vimrc` and `coc-settings`  
 ![](./mds/imgs/vimrc.png)
 
-search workspace symbols of pytorch (after finishing index)
+search workspace symbols of pytorch (after finishing index)  
 ![](./mds/imgs/index-torch.png)
 
-list all diagnostics info and locations of the current buffer, and move the cursor to the float window
+list all diagnostics info and locations of the current buffer, and move the cursor to the float window  
 ![](./mds/imgs/diag_torch_and_move_cursor_to_float_win.png)
 
-icons in completion items of `coc.nvim`
+icons in completion items of `coc.nvim`  
 ![](./mds/imgs/nerdfont1.png)
 ![](./mds/imgs/nerdfont2.png)
 
@@ -85,14 +85,6 @@ After installing this plugin, run Neovim via Visual Studio's "x64 Native Tools C
 ``` ps1
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 npm install -g yarn
-```
-
-**Note:** this syntax will cause bug:  
-``` markdown
-2 trailing spaces  
-          ||  
-A sentence  
-![](path/to/img)
 ```
 
 # TODO
