@@ -5,7 +5,7 @@ My personal Neovim configuration for editing `python`, `c/cpp`, `markdown` and `
 `vimrc` and `coc-settings`  
 ![](./mds/imgs/vimrc.png)
 
-search workspace symbols of pytorch (after finishing index)  
+search workspace symbols of `pytorch`  
 ![](./mds/imgs/index-torch.png)
 
 list all diagnostics info and locations of the current buffer, and move the cursor to the float window  
@@ -32,7 +32,7 @@ If you're using Conda virtual environment, don't forget to specify these two var
 
 > Builtin `neovim-qt/nvim-qt` doesn't support `Direct Write`  
 
-3. `guifont`: 等距更纱黑体 Slab SC Nerd Font [sarasa-mono-slab-sc-nerd-font](https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases)  
+3. `guifont`: 等距更纱黑体 Slab SC Nerd Font [sarasa-mono-sc-nerd-font](https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases)  
 
 4. `junegunn/vim-plug`: put `plug.vim` in `stdpath('data') . '/site/autoload'`  
     - default plug path: `stdpath('data') . '/plugged'`  
