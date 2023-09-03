@@ -14,11 +14,13 @@ git clone https://github.com/RMichelsen/Nvy.git
 
 In the file `https://github.com/RMichelsen/Nvy/blob/master/src/nvim/nvim.cpp`  
 At the first line, add:  
+
 ``` cpp
 #include <string>
 ```
 
 Below the code block `// Set g:nvy global variable`:  
+
 ``` cpp
 	// Set v:windowid
 	std::string command = "let v:windowid=";
@@ -29,7 +31,8 @@ Below the code block `// Set g:nvy global variable`:
 Then build `Nvy`:  
 > run these commands via Visual Studio's "x64 Native Tools Command Prompt"
 > console  
-``` dosbatch
+
+``` sh
 cd Nvy
 mkdir build
 cd build

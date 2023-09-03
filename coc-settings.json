@@ -71,7 +71,7 @@
 
   // coc-word
   "coc.source.word.priority": 0,
-  "coc.source.word.filetypes": ["text", "tex", "markdown"],
+  "coc.source.word.filetypes": [ "text", "tex", "markdown" ],
 
   // coc-snippets
   "snippets.autoTrigger": true,
@@ -99,6 +99,43 @@
   "python.analysis.autoImportCompletions": false,
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": false,
+
+  // coc-markdownlint
+  "markdownlint.onOpen": true,
+  "markdownlint.onChange": true,
+  "markdownlint.onSave": true,
+  "markdownlint.config": {
+    "default": true,
+    "MD001": false,
+    "MD003": { "style": "atx" },
+    "MD004": { "style": "dash" },
+    "MD007": {
+      "indent": 4,
+      "start_indented": false
+    },
+    "MD010": {
+      "code_blocks": true,
+      "spaces_per_tab": 4
+    },
+    "MD012": { "maximum": 2 },
+    "MD013": false,
+    "MD024": { "siblings_only": true },
+    "MD028": false,
+    "MD029": { "style": "ordered" },
+    "MD033": false,
+    "MD036": false,
+    "MD040": false,
+    "MD041": false,
+    "MD045": false,
+    "MD046": { "style": "fenced" },
+    "MD047": false,
+    "MD048": { "style": "backtick" },
+    "MD049": { "style": "asterisk" },
+    "MD050": { "style": "asterisk" },
+    "MD053": { "ignored_definitions": [
+      "//"
+    ]}
+  },
 
   // coc-texlab
   // $HOME/.latexmkrc:

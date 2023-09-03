@@ -25,8 +25,9 @@ $$
 $$
 
 If you're using Conda virtual environment, don't forget to specify these two variables in `init.vim`:  
-* `g:python3_host_prog`  
-* `g:conda_env`  
+
+- `g:python3_host_prog`  
+- `g:conda_env`  
 
 2. GUI/client: `Nvy` [Nvy](https://github.com/RMichelsen/Nvy/releases)  
 
@@ -38,7 +39,8 @@ If you're using Conda virtual environment, don't forget to specify these two var
     - default plug path: `stdpath('data') . '/plugged'`  
 
 > To set proxy for git:  
-```
+
+``` sh
 git config --global http.proxy http://127.0.0.1:1080
 git config --global https.proxy https://127.0.0.1:1080
 ```
@@ -82,6 +84,7 @@ After installing this plugin, run Neovim via Visual Studio's "x64 Native Tools C
 
 - Add `chrome.exe` to PATH Environment Variable  
 - Install `yarn`:  
+
 ``` ps1
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 npm install -g yarn

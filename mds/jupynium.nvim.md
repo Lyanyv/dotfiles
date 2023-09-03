@@ -32,11 +32,13 @@ Interact with multiple jupynium files
 
 **Make sure that the following commands won't throw errors**  
 
-```
+``` sh
 jupyter notebook
 ```
+
 or  
-```
+
+``` sh
 conda run --no-capture-output -n some_env jupyter notebook
 ```
 
@@ -101,6 +103,7 @@ hi! link JupyniumMagicCommand Keyword
 ```
 
 Set by `lua`:  
+
 ``` lua
 require("jupynium").setup({
     python_host = vim.g.python3_host_prog,

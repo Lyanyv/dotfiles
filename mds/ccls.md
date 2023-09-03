@@ -20,6 +20,7 @@ Hover
 ## Build ccls
 
 Requirements:  
+
 - CMake >= 3.8  
 - A C++ compiler with C++17 support, e.g., MSVC >= 2017  
     - Microsoft Visual Studio Community 2019 ver. 16.11.26  
@@ -42,7 +43,7 @@ ninja -C Release clangFormat clangFrontendTool clangIndex clangTooling clang
 Do not forget to change `-DCMAKE_PREFIX_PATH`  
 > The clang resource directory is hard-coded into ccls at compile time  
 
-``` dosbatch
+``` sh
 git clone --depth=1 --recursive https://github.com/MaskRay/ccls
 cd ccls
 cmake -H. -BRelease -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DCMAKE_PREFIX_PATH="C:\build-ccls\llvm-project\Release"
@@ -84,6 +85,7 @@ Finally, add `*\ccls\Release` to the PATH Environment Variable
 ## In `init.vim`
 
 For semantic highlighting:  
+
 ``` vim
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " :LspCxxHlCursorSym

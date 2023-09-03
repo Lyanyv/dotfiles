@@ -87,7 +87,8 @@ set nofoldenable  " disable folding at startup
 Plug 'neoclide/coc.nvim', { 'branch': 'master',
             \ 'do': 'yarn install --frozen-lockfile' }
 let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-lists',
-    \ 'coc-pairs', 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
+            \ 'coc-markdownlint', 'coc-pairs', 'coc-pyright', 'coc-snippets',
+            \ 'coc-texlab', 'coc-word' ]
 
 " key mappings
 function s:check_backspace() abort
@@ -413,7 +414,7 @@ set virtualedit=block
 set jumpoptions=view
 
 " text display
-set wrap linebreak breakindent showbreak=...
+set wrap linebreak breakindent showbreak=███
 " turn off physical line wrapping (automatic insertion of newlines)
 " but except LaTeX
 set textwidth=0 wrapmargin=0
@@ -428,7 +429,7 @@ set display=lastline,uhex conceallevel=0
 set list listchars=space:◦,trail:▓,eol:¬  " ␣░▒▓█
 
 set nospell spelllang=en,cjk
-autocmd FileType text,tex,markdown setlocal spell
+autocmd FileType text,tex,markdown setlocal nospell
 set showmatch
 
 " other info
@@ -486,6 +487,7 @@ nmap gB <Cmd>bprevious<CR>
 " insert and cmdline
 imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
+iabbrev txt2md [//]: vim:ft=markdown
 nmap ： :
 " In Terminal mode, type `<C-\><C-N>` to go to Normal mode
 
