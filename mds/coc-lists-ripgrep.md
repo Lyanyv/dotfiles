@@ -131,5 +131,5 @@ nmap <silent> \s <Cmd>CocList symbols<CR>
 nmap <silent> \f <Cmd>CocList files<CR>
 nmap <silent> \g <Cmd>CocList grep<CR>
 nmap <silent> \l <Cmd>CocList lines<CR>
-nmap <silent> \r <Cmd>CocList mru<CR>
+nmap <silent> \m <Cmd>CocList mru<CR>
 ```

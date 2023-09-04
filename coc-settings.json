@@ -31,7 +31,7 @@
     "event": "",
     "operator": "",
     "typeParameter": "",
-    "default": ""
+    "default": ""
   },
 
   "coc.preferences.jumpCommand": "tabe",
@@ -46,8 +46,6 @@
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "",
-  // "diagnostic.virtualText": true,
-  // "diagnostic.virtualTextAlign": "right",
   "list.source.symbols.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
 
   // coc-lists
@@ -60,14 +58,6 @@
   "list.source.lines.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
   "list.source.mru.defaultOptions": [ "--auto-preview", "--no-quit" ],
   "list.source.mru.defaultArgs": [ "-A" ],
-
-  // coc-pairs
-  // quotes only pair when the character before is not a word character
-
-  // coc-highlight
-  "colors.enable": true,
-  "highlight.colors.enable": true,
-  "highlight.document.enable": false,
 
   // coc-word
   "coc.source.word.priority": 0,
@@ -101,8 +91,15 @@
   "pyright.inlayHints.functionReturnTypes": false,
 
   // coc-markdownlint
+  "[markdown]": {
+    "diagnostic.enableMessage": "never",
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextAlign": "after",
+    "diagnostic.virtualTextCurrentLineOnly": true,
+  },
   "markdownlint.onOpen": true,
-  "markdownlint.onChange": true,
+  // set this to true may cause this extension to stop working
+  "markdownlint.onChange": false,
   "markdownlint.onSave": true,
   "markdownlint.config": {
     "default": true,
@@ -121,7 +118,8 @@
     "MD013": false,
     "MD024": { "siblings_only": true },
     "MD028": false,
-    "MD029": { "style": "ordered" },
+    // "MD029": { "style": "ordered" },
+    "MD029": false,
     "MD033": false,
     "MD036": false,
     "MD040": false,
@@ -138,6 +136,7 @@
   },
 
   // coc-texlab
+
   // $HOME/.latexmkrc:
   // $pdf_mode = 5;
   // $postscript_mode = $dvi_mode = 0;
@@ -149,8 +148,7 @@
   // $bibtex_use = 1;
 
   // SumatraPDF:
-  // InverseSearchCmdLine = gvim --remote-silent +%l "%f"
-  // gvim -> nvr (neovim-remote)
+  // InverseSearchCmdLine = nvr --remote-silent +%l "%f"
   "texlab.build.args": [ "-pvc" ],
   "texlab.forwardSearch.executable": "SumatraPDF",
   "texlab.forwardSearch.args": [
@@ -158,12 +156,13 @@
   ],
   "texlab.build.forwardSearchAfter": true,
   "texlab.chktex.onOpenAndSave": true,
-  "texlab.chktex.onEdit": true,
+  "texlab.chktex.onEdit": false,
 
   "semanticTokens.enable": false,
   // pyright ×: bad highlight
   // ccls ×: do not support
   // "[c][cpp][python]": { "semanticTokens.enable": false },
+
   // ccls
   "languageserver": {
     "ccls": {
@@ -171,10 +170,7 @@
       "filetypes": [ "c", "cpp", "cuda", "objc", "objcpp" ],
       "rootPatterns": [ ".ccls", "compile_commands.json" ],
       "initializationOptions": {
-        "cache": {
-          "directory": ".ccls-cache",
-          "format": "binary"
-        },
+        "cache": { "directory": ".ccls-cache", "format": "binary" },
         "index": { "multiVersion": 0 },
         "highlight": { "lsRanges": true }
         // If the project is compiled with MSVC,

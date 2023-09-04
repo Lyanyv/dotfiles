@@ -45,11 +45,11 @@ conda run --no-capture-output -n some_env jupyter notebook
 ## In `init.vim`
 
 ``` vim
-let g:conda_env = 'opencda'
+let g:conda_env = 'some_env'
 
-" Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
-Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
-    \. g:conda_env . ' pip install .' }
+Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
+" Plug 'kiyoon/jupynium.nvim', { 'do': 'conda run --no-capture-output -n '
+"     \. g:conda_env . ' pip install .' }
 
 " usage:
 " 1. open a `*.ju.py` file
@@ -85,7 +85,6 @@ function s:set_keymap_for_jupynium()
     xmap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
     omap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
     " command key mappings
-    " nmap <buffer> <F5> <Cmd>lua fn_wo_ext = vim.fn.expand '%:r:r' vim.cmd([[JupyniumStartSync ]] .. fn_wo_ext)<CR>
     nmap <buffer> <F5> <Cmd>JupyniumStartSync<CR>
     map <buffer> <S-CR> <Cmd>JupyniumExecuteSelectedCells<CR><Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
     map <buffer> <leader>c <Cmd>JupyniumClearSelectedCellsOutputs<CR>
@@ -97,9 +96,9 @@ augroup JupyniumKeyMap
 augroup END
 
 " highlight for jupynium
-hi! link JupyniumCodeCellSeparator MatchParen
+hi! link JupyniumCodeCellSeparator     MatchParen
 hi! link JupyniumMarkdownCellSeparator MatchParen
-hi! link JupyniumMagicCommand Keyword
+hi! link JupyniumMagicCommand          Keyword
 ```
 
 Set by `lua`:  
@@ -122,8 +121,7 @@ require("jupynium").setup({
     use_default_keybindings = false,
     textobjects = { use_default_keybindings = false, },
     syntax_highlight = { enable = true, },
-    -- dim all cells except the current one
-    shortsighted = true,
+    shortsighted = true,  -- dim all cells except the current one
 })
 ```
 

@@ -29,7 +29,7 @@ If you're using Conda virtual environment, don't forget to specify these two var
 - `g:python3_host_prog`  
 - `g:conda_env`  
 
-2. GUI/client: `Nvy` [Nvy](https://github.com/RMichelsen/Nvy/releases)  
+2. GUI/client: [Nvy](https://github.com/RMichelsen/Nvy/releases)  
 
 > Builtin `neovim-qt/nvim-qt` doesn't support `Direct Write`  
 
@@ -82,7 +82,7 @@ After installing this plugin, run Neovim via Visual Studio's "x64 Native Tools C
 
 ## `iamcco/markdown-preview.nvim`
 
-- Add `chrome.exe` to PATH Environment Variable  
+- Add `firefox.exe` to PATH Environment Variable  
 - Install `yarn`:  
 
 ``` ps1

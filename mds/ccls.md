@@ -63,10 +63,7 @@ Finally, add `*\ccls\Release` to the PATH Environment Variable
       "filetypes": [ "c", "cpp", "cuda", "objc", "objcpp" ],
       "rootPatterns": [ ".ccls", "compile_commands.json" ],
       "initializationOptions": {
-        "cache": {
-          "directory": ".ccls-cache",
-          "format": "binary"
-        },
+        "cache": { "directory": ".ccls-cache", "format": "binary" },
         "index": { "multiVersion": 0 },
         "highlight": { "lsRanges": true }
         // If the project is compiled with MSVC,
@@ -92,10 +89,10 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 " highlight for vim-lsp-cxx-highlight
 function s:custom_LspCxxHl()
-    hi! link LspCxxHlGroupEnumConstant Constant
-    hi! link LspCxxHlGroupNamespace Directory
-    hi! link LspCxxHlGroupMemberVariable Identifier
-    hi! link LspCxxHlSymVariable Identifier
+    hi! link LspCxxHlGroupEnumConstant     Constant
+    hi! link LspCxxHlGroupNamespace        Directory
+    hi! link LspCxxHlGroupMemberVariable   Identifier
+    hi! link LspCxxHlSymVariable           Identifier
     hi! link LspCxxHlSymUnknownStaticField Identifier
     " A name dependent on a template, usually a function but can also be a variable?
     hi! link LspCxxHlSymDependentName Function

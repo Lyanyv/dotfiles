@@ -1,11 +1,10 @@
 " TODO:
 " file explorer, symbols outline
-" statusline, tabline
-" text-object, multi cursors
-" debugger, git support
+" statusline,    tabline
+" text-object,   multi cursors
+" debugger,      git support
 
 " multibyte charsets
-" language message zh_CN.UTF-8
 set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
@@ -15,8 +14,8 @@ let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
 " or specify it explictly
-" let g:python3_host_prog="C:/softwares/anaconda3/envs/opencda/python.exe"
-" let g:conda_env = 'opencda'
+" let g:python3_host_prog=".../python.exe"
+" let g:conda_env = 'some_env'
 
 if has('win32')
     let s:cmd_open = 'start'
@@ -50,19 +49,21 @@ let g:gruvbox_material_enable_italic = 1
 
 let g:gruvbox_material_transparent_background = 0
 let g:gruvbox_material_dim_inactive_windows = 1
-let g:gruvbox_material_visual = 'red background'
+let g:gruvbox_material_visual = 'blue background'
 let g:gruvbox_material_current_word = 'reverse'
 let g:gruvbox_material_menu_selection_background = 'green'
 let g:gruvbox_material_spell_foreground = 'colored'
 let g:gruvbox_material_diagnostic_text_highlight = 1
+
+Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'lukas-reineke/indent-blankline.nvim'
 let g:indent_blankline_show_end_of_line = v:true
 let g:indent_blankline_show_trailing_blankline_indent = v:true
 let g:indent_blankline_space_char_blankline = ' '
 
-let g:indent_blankline_use_treesitter = v:false
-let g:indent_blankline_use_treesitter_scope = v:false
+let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_use_treesitter_scope = v:true
 let g:indent_blankline_show_current_context = v:true
 let g:indent_blankline_show_current_context_start = v:true
 let g:indent_blankline_context_highlight_list = ['Label']
@@ -75,6 +76,8 @@ Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
 
 Plug 'godlygeek/tabular'
+Plug 'windwp/nvim-autopairs'
+
 Plug 'psliwka/vim-smoothie'
 Plug 'phaazon/hop.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -83,12 +86,10 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable  " disable folding at startup
 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', { 'branch': 'master',
             \ 'do': 'yarn install --frozen-lockfile' }
-let g:coc_global_extensions = [ 'coc-highlight', 'coc-json', 'coc-lists',
-            \ 'coc-markdownlint', 'coc-pairs', 'coc-pyright', 'coc-snippets',
-            \ 'coc-texlab', 'coc-word' ]
+let g:coc_global_extensions = [ 'coc-json', 'coc-lists', 'coc-markdownlint',
+            \ 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
 
 " key mappings
 function s:check_backspace() abort
@@ -101,21 +102,20 @@ inoremap <silent><expr> <Tab>
 imap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-d>"
 " <C-g>u breaks undo chain at current position
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+    \: "\<C-g>u\<C-r>=v:lua.require'nvim-autopairs'.autopairs_cr()\<CR>"
+    " \: "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
 
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>s <Plug>(coc-declaration)
 nmap <silent> <leader>i <Plug>(coc-implementation)
 nmap <silent> <leader>t <Plug>(coc-type-definition)
 nmap <silent> <leader>r <Plug>(coc-references)
-
 nmap <leader>n <Plug>(coc-rename)
 nmap <leader>f <Plug>(coc-codeaction-cursor)
 
 nnoremap <silent> K <Cmd>call <SID>show_doc()<CR>
 function s:show_doc()
-    if CocAction('hasProvider', 'hover')
-        call CocActionAsync('doHover')
+    if CocAction('hasProvider', 'hover') | call CocActionAsync('doHover')
     else | call feedkeys('K', 'in') | endif
 endfunction
 " open the url/file link or jump to the tag under the cursor
@@ -144,7 +144,7 @@ function s:open_link()
 endfunction
 
 " map function and class text-object
-" NOTE: requires 'textDocument.documentSymbol' support from the language server
+" requires 'textDocument.documentSymbol' support from the language server
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -155,7 +155,7 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " snippets and signature
-autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
+autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
@@ -175,8 +175,6 @@ command Format :call CocActionAsync('format')
 autocmd FileType tex command! -buffer Format
     \ echoerr "latexindent's behavior is weird, use `gq` instead"
 command OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
-
-autocmd FileType tex,markdown let b:coc_pairs = [['$', '$']]
 autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 
@@ -199,11 +197,16 @@ function CocDiagnosticsStatus(key)
 endfunction
 autocmd User CocStatusChange redrawstatus
 
+" manage workspace folders `:h coc-workspace`
+" 1. `:CocList folders` lists workspace folders, supports `delete` and `edit`
+" 2. `:echo coc#util#root_patterns()` gets patterns used for resolve workspace
+"    folder of current buffer
+" 3. `g:WorkspaceFolders` stores workspace folders
+" to enable multiple workspace folders, open at least one file of each folder
+
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " :LspCxxHlCursorSym
 
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() },
-"     \ 'for': ['markdown', 'vim-plug']}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 0
@@ -223,7 +226,7 @@ let g:mkdp_preview_options = {
     \ 'flowchart_diagrams': {},
     \ 'content_editable': v:false,
     \ 'disable_filename': 0,
-    \ 'toc': {'listType' : 'ul'},
+    \ 'toc': {'listType' : 'ol'},
     \ }  " toc.listType: ul for unordered, ol for ordered
 
 " add `firefox.exe` to PATH Environment Variable
@@ -258,7 +261,13 @@ Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
 call plug#end()
 
 " set by lua
+if has('termguicolors') | set termguicolors | endif
 lua << EOF
+require'colorizer'.setup({ '*' }, {
+    RGB    = false;
+    RRGGBB = true;
+    names  = true;
+})
 require('illuminate').configure({
     providers = {
         -- 'lsp',
@@ -271,6 +280,24 @@ require('illuminate').configure({
     -- seems that Operator-pending modes will block Vim
     modes_allowlist = { 'n', 'niI', 'niR', 'niV', 't', 'nt', 'ntT', },
 })
+
+local npairs = require("nvim-autopairs")
+local Rule = require("nvim-autopairs.rule")
+local cond = require("nvim-autopairs.conds")
+npairs.setup({
+    disable_filetype = {},
+    enable_abbr = false,
+    map_cr = false,
+    map_bs = true,
+    map_c_h = true,
+    map_c_w = true,
+})
+-- for equation environment, use snippets instead of autopairs
+npairs.add_rules({
+    Rule("$", "$", {"tex", "markdown"})
+    :with_move(cond.done())
+})
+
 require'hop'.setup {
     case_insensitive = false,
     jump_on_sole_occurrence = false,
@@ -282,7 +309,7 @@ require'nvim-treesitter.configs'.setup {
                          'latex', 'markdown', 'markdown_inline', 'python',
                          'query', 'vim', 'vimdoc',
     },
-    sync_install = false,
+    sync_install = true,
     auto_install = false,
     prefer_git = true,
     highlight = {
@@ -309,8 +336,7 @@ require("jupynium").setup({
     use_default_keybindings = false,
     textobjects = { use_default_keybindings = false, },
     syntax_highlight = { enable = true, },
-    -- dim all cells except the current one
-    shortsighted = true,
+    shortsighted = true,  -- dim all cells except the current one
 })
 EOF
 
@@ -340,7 +366,6 @@ function s:set_keymap_for_jupynium()
     xmap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
     omap <buffer> aj <Cmd>lua require'jupynium.textobj'.select_cell(true, false)<CR>
     " command key mappings
-    " nmap <buffer> <F5> <Cmd>lua fn_wo_ext = vim.fn.expand '%:r:r' vim.cmd([[JupyniumStartSync ]] .. fn_wo_ext)<CR>
     nmap <buffer> <F5> <Cmd>JupyniumStartSync<CR>
     map <buffer> <S-CR> <Cmd>JupyniumExecuteSelectedCells<CR><Cmd>lua require'jupynium.textobj'.goto_next_cell_separator()<CR>
     map <buffer> <leader>c <Cmd>JupyniumClearSelectedCellsOutputs<CR>
@@ -362,20 +387,24 @@ let loaded_gzip          = 0
 " plugins `editorconfig`, `man.lua` and `matchit` are enabled by default
 
 " ui and font
-if has('termguicolors') | set termguicolors | endif
 set background=dark
 " `LineNr`: bg = SpecialKey's fg, fg = Normal's bg
-" be sure that StatusLine, ColorColumn and CursorLine have the same highlight
+" be sure that ColorColumn and CursorLine have the same highlight
 function s:gruvbox_material_custom()
     let palette = gruvbox_material#get_palette(
         \ g:gruvbox_material_background,
         \ g:gruvbox_material_foreground, {})
     call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5, 'bold')
     call gruvbox_material#highlight('CursorLineNr', palette.fg0, palette.bg0, 'bold')
-    call gruvbox_material#highlight('HighlightedyankRegion',
-                \ palette.none, palette.bg_visual_blue)
-    call gruvbox_material#highlight('JupyniumShortsighted',
-                \ palette.none, palette.bg_dim)
+
+    call gruvbox_material#highlight('CocVirtualText', palette.bg5, palette.none)
+    call gruvbox_material#highlight('VirtualTextError', palette.grey2, palette.bg_visual_red)
+    call gruvbox_material#highlight('VirtualTextWarning', palette.grey2, palette.bg_visual_yellow)
+    call gruvbox_material#highlight('VirtualTextInfo', palette.grey2, palette.bg_visual_blue)
+    call gruvbox_material#highlight('VirtualTextHint', palette.grey2, palette.bg_visual_green)
+
+    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_blue)
+    call gruvbox_material#highlight('JupyniumShortsighted', palette.none, palette.bg_dim)
 endfunction
 augroup GruvboxMaterialCustom
     autocmd!
@@ -403,7 +432,7 @@ endif
 
 " layout
 set title
-set signcolumn=number number norelativenumber numberwidth=4
+set signcolumn=number number norelativenumber numberwidth=3
 set colorcolumn=81 cursorline
 set laststatus=3
 set noruler  " since it's redefined
@@ -451,7 +480,8 @@ set backup undofile backupdir-=.
 set nosmarttab expandtab shiftround
 autocmd FileType * set expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType c,cpp,json,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType c,cpp,json,jsonc,yaml
+    \ setlocal tabstop=2 softtabstop=2 shiftwidth=2
 set backspace=2
 set mouse=a mousemodel=popup mousehide  " Nvy doesn't support `mousehide`
 set mousescroll=ver:2,hor:4
@@ -461,8 +491,8 @@ set mousescroll=ver:2,hor:4
 " horizontal
 map <leader>a ^
 " hold selection when shifting sidewards
-xnoremap < <gv
-xnoremap > >gv
+" xnoremap < <gv
+" xnoremap > >gv
 " vertical
 " j/k will move over virtual lines (lines that wrap)
 noremap <expr> j  (v:count == 0 ? 'gj' : 'j')
@@ -489,7 +519,9 @@ imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
 iabbrev txt2md [//]: vim:ft=markdown
 nmap ： :
-" In Terminal mode, type `<C-\><C-N>` to go to Normal mode
+" In Terminal mode, type `<C-\><C-n>` to go to Normal mode
+" NOTE: Some processes really rely on `<Esc>`, e.g. Neovim nested in Terminal
+tnoremap <Esc> <C-\><C-n>
 
 " other
 nmap <leader><leader> <C-l>
@@ -510,7 +542,6 @@ autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
 " nnoremap & :&&<CR>
 
 " highlight
-" set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
@@ -529,16 +560,16 @@ hi! link @text.title6 markdownH6
 hi! link @text.quote Comment
 
 " highlight for jupynium
-hi! link JupyniumCodeCellSeparator MatchParen
+hi! link JupyniumCodeCellSeparator     MatchParen
 hi! link JupyniumMarkdownCellSeparator MatchParen
-hi! link JupyniumMagicCommand Keyword
+hi! link JupyniumMagicCommand          Keyword
 
 " highlight for vim-lsp-cxx-highlight
 function s:custom_LspCxxHl()
-    hi! link LspCxxHlGroupEnumConstant Constant
-    hi! link LspCxxHlGroupNamespace Directory
-    hi! link LspCxxHlGroupMemberVariable Identifier
-    hi! link LspCxxHlSymVariable Identifier
+    hi! link LspCxxHlGroupEnumConstant     Constant
+    hi! link LspCxxHlGroupNamespace        Directory
+    hi! link LspCxxHlGroupMemberVariable   Identifier
+    hi! link LspCxxHlSymVariable           Identifier
     hi! link LspCxxHlSymUnknownStaticField Identifier
     " A name dependent on a template, usually a function but can also be a variable?
     hi! link LspCxxHlSymDependentName Function
@@ -556,7 +587,7 @@ function MapPeriod()
     imap <buffer> 。 .
 endfunction
 
-" a tool function to rearrange line breaks in text copied from PDF
+" rearrange line breaks in text copied from PDF
 function s:rearrange_linebreaks()
     let cliptext = getreg('+')
     let maps = [
@@ -584,7 +615,7 @@ function s:rearrange_linebreaks()
 endfunction
 command Rlbr call s:rearrange_linebreaks()
 
-command DiffOrig 
+command DiffOrig
     \ let s:temp_ft=&ft | vert new | set buftype=nowrite | read ++edit #
     \ | silent 0d_ | let &ft=s:temp_ft | diffthis | wincmd p | diffthis
 " When editing a file, always jump to the last known cursor position. Don't do
@@ -609,10 +640,3 @@ command Vimrc execute('CocConfig') | vsplit $MYVIMRC
 " diff jump: [c ]c
 " spell jump: [s ]s
 " spell suggest: z=
-
-" manage workspace folders `:h coc-workspace`
-" 1. `:CocList folders` lists workspace folders, supports `delete` and `edit`
-" 2. `:echo coc#util#root_patterns()` gets patterns used for resolve workspace
-"    folder of current buffer
-" 3. `g:WorkspaceFolders` stores workspace folders
-" to enable multiple workspace folders, open at least one file of each folder
