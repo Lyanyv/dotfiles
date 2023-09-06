@@ -49,7 +49,7 @@ let g:gruvbox_material_enable_italic = 1
 
 let g:gruvbox_material_transparent_background = 0
 let g:gruvbox_material_dim_inactive_windows = 1
-let g:gruvbox_material_visual = 'blue background'
+let g:gruvbox_material_visual = 'green background'
 let g:gruvbox_material_current_word = 'reverse'
 let g:gruvbox_material_menu_selection_background = 'green'
 let g:gruvbox_material_spell_foreground = 'colored'
@@ -292,7 +292,7 @@ npairs.setup({
     map_c_h = true,
     map_c_w = true,
 })
--- for equation environment, use snippets instead of autopairs
+-- create equation environment with snippets instead of autopairs
 npairs.add_rules({
     Rule("$", "$", {"tex", "markdown"})
     :with_move(cond.done())
@@ -599,6 +599,7 @@ function s:rearrange_linebreaks()
         \ [ 'cf\.'                 , 'see '                   ],
         \ [ 'cp\.'                 , 'see '                   ],
         \ [ 'Q\.E\.D\.'            , 'that which was proven.' ],
+        \ [ 'i\.i\.d\.'            , 'independent and identically distributed' ],
         \ [ 'viz\.'                , 'namely'                 ],
         \ [ 'Fig\.'                , 'figure'                 ],
         \ [ 'Tab\.'                , 'table'                  ],
@@ -613,7 +614,7 @@ function s:rearrange_linebreaks()
     endfor
     call setreg('+', cliptext)
 endfunction
-command Rlbr call s:rearrange_linebreaks()
+nmap \\ <Cmd>call <SID>rearrange_linebreaks()<CR>
 
 command DiffOrig
     \ let s:temp_ft=&ft | vert new | set buftype=nowrite | read ++edit #
