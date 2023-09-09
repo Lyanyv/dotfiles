@@ -591,30 +591,31 @@ endfunction
 function s:rearrange_linebreaks()
     let cliptext = getreg('+')
     let maps = [
-        \ [ 'e\.g\.'               , 'for example'            ],
-        \ [ 'i\.e\.'               , 'that is'                ],
-        \ [ 'etc\.'                , 'and so on.'             ],
-        \ [ 'et[ \t\n\r]\{1,\}al\.', 'and others '            ],
-        \ [ 'ff\.'                 , ' and following.'        ],
-        \ [ 'cf\.'                 , 'see '                   ],
-        \ [ 'cp\.'                 , 'see '                   ],
-        \ [ 'Q\.E\.D\.'            , 'that which was proven.' ],
-        \ [ 'i\.i\.d\.'            , 'independent and identically distributed' ],
-        \ [ 'viz\.'                , 'namely'                 ],
-        \ [ 'Fig\.'                , 'figure'                 ],
-        \ [ 'Tab\.'                , 'table'                  ],
-        \ [ '[\e\t\r\b\n]'         , ' '                      ],
-        \ [ '\s\{1,\}'             , ' '                      ],
-        \ [ '[?!\.]\@<=\s'         , '\n'                     ],
-        \ [ '^\s\{1,\}'            , ''                       ],
-        \ [ '\s\{1,\}$'            , ''                       ],
+        \ [ 'e\.g\.'                , 'for example'            ],
+        \ [ 'i\.e\.'                , 'that is'                ],
+        \ [ 'etc\.'                 , 'and so on.'             ],
+        \ [ 'et[ \t\n\r]\{1,\}al\.' , 'and others '            ],
+        \ [ 'ff\.'                  , ' and following.'        ],
+        \ [ 'cf\.'                  , 'see '                   ],
+        \ [ 'cp\.'                  , 'see '                   ],
+        \ [ 'Q\.E\.D\.'             , 'that which was proven.' ],
+        \ [ 'i\.i\.d\.'             , 'independent and identically distributed' ],
+        \ [ 'w\.r\.t\.'             , 'with respect to'        ],
+        \ [ 'viz\.'                 , 'namely'                 ],
+        \ [ 'Fig\.'                 , 'figure'                 ],
+        \ [ 'Tab\.'                 , 'table'                  ],
+        \ [ '[\e\t\r\b\n]'          , ' '                      ],
+        \ [ '\s\{1,\}'              , ' '                      ],
+        \ [ '[?!\.]\@<=\s'          , '\n'                     ],
+        \ [ '^\s\{1,\}'             , ''                       ],
+        \ [ '\s\{1,\}$'             , ''                       ],
         \ ]
     for [pat, sub] in maps
         let cliptext = substitute(cliptext, pat, sub, 'g')
     endfor
     call setreg('+', cliptext)
 endfunction
-nmap \\ <Cmd>call <SID>rearrange_linebreaks()<CR>
+nmap \\ <Cmd>autocmd FocusGained * call <SID>rearrange_linebreaks()<CR>
 
 command DiffOrig
     \ let s:temp_ft=&ft | vert new | set buftype=nowrite | read ++edit #
