@@ -120,6 +120,7 @@
     "MD028": false,
     // "MD029": { "style": "ordered" },
     "MD029": false,
+    "MD032": false,
     "MD033": false,
     "MD036": false,
     "MD040": false,
@@ -149,7 +150,7 @@
 
   // SumatraPDF:
   // InverseSearchCmdLine = nvr --remote-silent +%l "%f"
-  "texlab.build.args": [ "-pvc" ],
+  "texlab.build.args": [ "-pv" ],
   "texlab.forwardSearch.executable": "SumatraPDF",
   "texlab.forwardSearch.args": [
     "-reuse-instance", "%p", "-forward-search", "%f", "%l"
