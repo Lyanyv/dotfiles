@@ -61,7 +61,7 @@
 
   // coc-word
   "coc.source.word.priority": 0,
-  "coc.source.word.filetypes": [ "text", "tex", "markdown" ],
+  "coc.source.word.filetypes": [ "text", "tex", "latex", "markdown" ],
 
   // coc-snippets
   "snippets.autoTrigger": true,

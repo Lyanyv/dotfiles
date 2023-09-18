@@ -180,13 +180,24 @@ autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 
 " statusline
 set statusline=%#StatusLine#%(%y\ %)%<%f%(\ %h%m%r%)
-set statusline+=%#Label#%=%(%{get(g:,'coc_status','')}\ \|\ %)
+" set statusline+=%#Label#%=%(%.32{get(g:,'coc_status','')}\ \|\ %)
+set statusline+=%#Label#%=%(%.50{TruncatedCocStatus(50)}\ \|\ %)
 set statusline+=%#Function#%(%{get(b:,'coc_current_function','')}\ \|\ %)
 set statusline+=%#CocErrorSign#%-4.{CocDiagnosticsStatus('error')}
 set statusline+=%#CocWarningSign#%-4.{CocDiagnosticsStatus('warning')}
 set statusline+=%#CocInfoSign#%-4.{CocDiagnosticsStatus('information')}
 set statusline+=%#CocHintSign#%-4.{CocDiagnosticsStatus('hint')}
 set statusline+=%#StatusLine#%-14.(%l,%c%V%)\ %P
+
+function TruncatedCocStatus(max_len)
+    let info = get(g:, 'coc_status', '')
+    if len(info) > a:max_len
+        return info[:a:max_len / 2 - 1 - 2] .. '....'
+                \ .. info[-(a:max_len - a:max_len / 2 - 2):]
+    else
+        return info
+    endif
+endfunction
 
 function CocDiagnosticsStatus(key)
     let info = get(b:, 'coc_diagnostic_info', {})
