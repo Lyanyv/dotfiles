@@ -37,7 +37,7 @@ snippet link "url" b
 [$1]($2)
 endsnippet
 
-snippet cf "colored font html tag" b
+snippet cf "colored font html tag" i
 <font color="${1:tomato}" size="${2:4}">$3</font>
 endsnippet
 
@@ -52,6 +52,18 @@ snippet eq "LaTeX equation, font size: Huge/huge/LARGE/Large/large/normalsize/sm
     $2
 \\end\{equation\}\}
 \$\$
+endsnippet
+
+snippet ppa "paired parentheses in math mode" i
+\\left( $1 \\right)
+endsnippet
+
+snippet psb "paired square brackets in math mode" i
+\\left[ $1 \\right]
+endsnippet
+
+snippet pcb "paired curly brackets in math mode" i
+\\left\\\{ $1 \\right\\\}
 endsnippet
 
 snippet cb "code blocks" b

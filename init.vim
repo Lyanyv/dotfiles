@@ -76,7 +76,42 @@ Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
 
 Plug 'godlygeek/tabular'
-Plug 'windwp/nvim-autopairs'
+Plug 'LunarWatcher/auto-pairs', {'tag': 'v4.0.1'}
+let g:AutoPairsDefaultDisableKeybinds = 1
+let g:AutoPairsCompatibleMaps = 0  " recommended
+let g:AutoPairsPrefix = ""
+let g:AutoPairsShortcutToggle = ""
+let g:AutoPairsShortcutToggleMultilineClose = ""
+let g:AutoPairsShortcutJump = ""
+let g:AutoPairsShortcutBackInsert = ""
+let g:AutoPairsShortcutIgnore = ""
+let g:AutoPairsMoveExpression = ""
+" <BS>
+let g:AutoPairsMapBS = 1
+let g:AutoPairsMultilineBackspace = 1
+let g:AutoPairsBSAfter = 1
+let g:AutoPairsBSIn = 1
+" <CR>
+let g:AutoPairsMapCR = 0
+" <Space>
+let g:AutoPairsMapSpace = 1
+" expand management
+let g:AutoPairsCompleteOnlyOnSpace = 0
+let g:AutoPairsSingleQuoteMode = 0
+autocmd FileType python let b:AutoPairsSingleQuoteMode = 2
+" balance management
+let g:AutoPairsPreferClose = 0  " prefer to jump
+let g:AutoPairsMultilineClose = 1
+let g:AutoPairsMultilineCloseDeleteSpace = 0
+let g:AutoPairsSearchCloseAfterSpace = 1
+let g:AutoPairsStringHandlingMode = 0  " since syntax is killed by treesitter
+" jump and fly mode
+let g:AutoPairsNoJump = 0
+let g:AutoPairsFlyMode = 0
+" fast wrap
+let g:AutoPairsShortcutFastWrap = "<C-b>"
+let g:AutoPairsMultilineFastWrap = 0
+let g:AutoPairsMultibyteFastWrap = 1
 
 Plug 'psliwka/vim-smoothie'
 Plug 'phaazon/hop.nvim'
@@ -102,8 +137,7 @@ inoremap <silent><expr> <Tab>
 imap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-d>"
 " <C-g>u breaks undo chain at current position
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-    \: "\<C-g>u\<C-r>=v:lua.require'nvim-autopairs'.autopairs_cr()\<CR>"
-    " \: "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
+    \: "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
 
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>s <Plug>(coc-declaration)
@@ -271,6 +305,17 @@ Plug 'kiyoon/jupynium.nvim', { 'do': 'pip3 install --user .' }
 
 call plug#end()
 
+" autopairs
+call autopairs#Variables#InitVariables()
+let g:AutoPairs = autopairs#AutoPairsDefine([
+    \ {"open": '（', "close": '）'},
+    \ {"open": '【', "close": '】'},
+    \ {"open": '‘', "close": '’'},
+    \ {"open": '“', "close": '”'},
+    \ {"open": '《', "close": '》'},
+    \ {"open": "$", "close": "$", "filetype": ["tex", "markdown"]},
+    \ ])
+
 " set by lua
 if has('termguicolors') | set termguicolors | endif
 lua << EOF
@@ -291,24 +336,6 @@ require('illuminate').configure({
     -- seems that Operator-pending modes will block Vim
     modes_allowlist = { 'n', 'niI', 'niR', 'niV', 't', 'nt', 'ntT', },
 })
-
-local npairs = require("nvim-autopairs")
-local Rule = require("nvim-autopairs.rule")
-local cond = require("nvim-autopairs.conds")
-npairs.setup({
-    disable_filetype = {},
-    enable_abbr = false,
-    map_cr = false,
-    map_bs = true,
-    map_c_h = true,
-    map_c_w = true,
-})
--- create equation environment with snippets instead of autopairs
-npairs.add_rules({
-    Rule("$", "$", {"tex", "markdown"})
-    :with_move(cond.done())
-})
-
 require'hop'.setup {
     case_insensitive = false,
     jump_on_sole_occurrence = false,
@@ -615,6 +642,7 @@ function s:rearrange_linebreaks()
         \ [ 'viz\.'                 , 'namely'                 ],
         \ [ 'Fig\.'                 , 'figure'                 ],
         \ [ 'Tab\.'                 , 'table'                  ],
+        \ [ 'Eq\.'                  , 'equation'               ],
         \ [ '[\e\t\r\b\n]'          , ' '                      ],
         \ [ '\s\{1,\}'              , ' '                      ],
         \ [ '[?!\.]\@<=\s'          , '\n'                     ],
