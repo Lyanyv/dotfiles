@@ -49,7 +49,7 @@ let g:gruvbox_material_enable_italic = 1
 
 let g:gruvbox_material_transparent_background = 0
 let g:gruvbox_material_dim_inactive_windows = 1
-let g:gruvbox_material_visual = 'green background'
+let g:gruvbox_material_visual = 'red background'
 let g:gruvbox_material_current_word = 'reverse'
 let g:gruvbox_material_menu_selection_background = 'green'
 let g:gruvbox_material_spell_foreground = 'colored'
@@ -441,7 +441,7 @@ function s:gruvbox_material_custom()
     call gruvbox_material#highlight('VirtualTextInfo', palette.grey2, palette.bg_visual_blue)
     call gruvbox_material#highlight('VirtualTextHint', palette.grey2, palette.bg_visual_green)
 
-    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_blue)
+    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_red)
     call gruvbox_material#highlight('JupyniumShortsighted', palette.none, palette.bg_dim)
 endfunction
 augroup GruvboxMaterialCustom
@@ -537,6 +537,8 @@ noremap <expr> j  (v:count == 0 ? 'gj' : 'j')
 noremap <expr> k  (v:count == 0 ? 'gk' : 'k')
 map <expr> <Down> (v:count == 0 ? 'gj' : 'j')
 map <expr> <Up>   (v:count == 0 ? 'gk' : 'k')
+imap <Down> <C-o>gj
+imap <Up> <C-o>gk
 " search smartly, centrally and smoothly
 nnoremap n <Cmd>call feedkeys('Nn'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
 nnoremap N <Cmd>call feedkeys('nN'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
