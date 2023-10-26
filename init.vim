@@ -678,6 +678,7 @@ autocmd BufReadPost *
 " to find user config dir `:echo stdpath('config')`
 autocmd BufReadPost coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit $MYVIMRC
+command HtmlColorNames exec 'tabe ' .. stdpath("config") .. '/mds/HtmlColorNames.md'
 " `<Cmd>...<CR>` in key mappings
 " vim can't distinguish between `<Tab>` and `<C-i>`, `<Esc>` and `<C-[>`
 
