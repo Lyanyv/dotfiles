@@ -193,6 +193,7 @@ autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
+vmap <C-j> <Plug>(coc-snippets-select)
 
 " coc-lists
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
