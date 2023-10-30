@@ -193,6 +193,7 @@ autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
+vmap <C-j> <Plug>(coc-snippets-select)
 
 " coc-lists
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -257,6 +258,7 @@ let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 0
 let g:mkdp_refresh_slow = 1
 
+let g:mkdp_theme = 'dark'
 let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_preview_options = {
@@ -573,6 +575,8 @@ nmap <leader>p <Cmd>setlocal spell!<CR>
 " filetype related
 autocmd FileType python nmap <buffer> <F5> :up!<CR>:!python -u %<CR>
 autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
+autocmd FileType tex command! -buffer Pdf2Svg
+    \ exec "!dvisvgm -P " .. expand('%:r') .. '.pdf'
 
 " Neovim's default mappings
 " nnoremap Y y$
@@ -677,6 +681,7 @@ autocmd BufReadPost *
 " to find user config dir `:echo stdpath('config')`
 autocmd BufReadPost coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit $MYVIMRC
+command HtmlColorNames exec 'tabe ' .. stdpath("config") .. '/mds/HtmlColorNames.md'
 " `<Cmd>...<CR>` in key mappings
 " vim can't distinguish between `<Tab>` and `<C-i>`, `<Esc>` and `<C-[>`
 
