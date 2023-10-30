@@ -258,6 +258,7 @@ let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 0
 let g:mkdp_refresh_slow = 1
 
+let g:mkdp_theme = 'dark'
 let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_preview_options = {
@@ -574,6 +575,8 @@ nmap <leader>p <Cmd>setlocal spell!<CR>
 " filetype related
 autocmd FileType python nmap <buffer> <F5> :up!<CR>:!python -u %<CR>
 autocmd FileType tex nmap <buffer> <F6> :sp %:r.log<CR>/\.tex:\d<CR>
+autocmd FileType tex command! -buffer Pdf2Svg
+    \ exec "!dvisvgm -P " .. expand('%:r') .. '.pdf'
 
 " Neovim's default mappings
 " nnoremap Y y$
