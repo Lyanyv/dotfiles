@@ -475,7 +475,7 @@ endif
 " layout
 set title
 set signcolumn=number number norelativenumber numberwidth=3
-set colorcolumn=81 cursorline
+set colorcolumn=81 nocursorline
 set laststatus=3
 set noruler  " since it's redefined
 
@@ -487,11 +487,11 @@ set jumpoptions=view
 " text display
 set wrap linebreak breakindent showbreak=███
 " turn off physical line wrapping (automatic insertion of newlines)
-" but except LaTeX
+" but except LaTeX and markdown
 set textwidth=0 wrapmargin=0
 autocmd FileType * call s:setlocal_textwidth()
 function s:setlocal_textwidth()
-    if &filetype=='tex' | setlocal textwidth=80
+    if &filetype=='tex' || &filetype=='markdown' | setlocal textwidth=80
         \ | else | setlocal textwidth=0 | endif
     setlocal wrapmargin=0
 endfunction
@@ -641,7 +641,7 @@ function s:rearrange_linebreaks()
         \ [ 'i\.e\.'                , 'that is'                ],
         \ [ 'etc\.'                 , 'and so on.'             ],
         \ [ 'et[ \t\n\r]\{1,\}al\.' , 'and others '            ],
-        \ [ 'ff\.'                  , ' and following.'        ],
+        \ [ ' ff\.'                 , ' and following.'        ],
         \ [ 'cf\.'                  , 'see '                   ],
         \ [ 'cp\.'                  , 'see '                   ],
         \ [ 'Q\.E\.D\.'             , 'that which was proven.' ],
