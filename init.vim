@@ -250,8 +250,8 @@ autocmd User CocStatusChange redrawstatus
 " 3. `g:WorkspaceFolders` stores workspace folders
 " to enable multiple workspace folders, open at least one file of each folder
 
-Plug 'jackguo380/vim-lsp-cxx-highlight'
-" :LspCxxHlCursorSym
+" Plug 'jackguo380/vim-lsp-cxx-highlight'
+" " :LspCxxHlCursorSym
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 let g:mkdp_auto_start = 0
@@ -354,7 +354,7 @@ require'nvim-treesitter.configs'.setup {
     prefer_git = true,
     highlight = {
         enable = true,
-        disable = { 'c', 'cpp', },
+        -- disable = { 'c', 'cpp', },
         additional_vim_regex_highlighting = false,  -- will disable syntax
     },
     indent = { enable = true },
@@ -541,8 +541,8 @@ noremap <expr> j  (v:count == 0 ? 'gj' : 'j')
 noremap <expr> k  (v:count == 0 ? 'gk' : 'k')
 map <expr> <Down> (v:count == 0 ? 'gj' : 'j')
 map <expr> <Up>   (v:count == 0 ? 'gk' : 'k')
-imap <Down> <C-o>gj
-imap <Up> <C-o>gk
+" imap <Down> <C-o>gj
+" imap <Up> <C-o>gk
 " search smartly, centrally and smoothly
 nnoremap n <Cmd>call feedkeys('Nn'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
 nnoremap N <Cmd>call feedkeys('nN'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
@@ -610,18 +610,18 @@ hi! link JupyniumCodeCellSeparator     MatchParen
 hi! link JupyniumMarkdownCellSeparator MatchParen
 hi! link JupyniumMagicCommand          Keyword
 
-" highlight for vim-lsp-cxx-highlight
-function s:custom_LspCxxHl()
-    hi! link LspCxxHlGroupEnumConstant     Constant
-    hi! link LspCxxHlGroupNamespace        Directory
-    hi! link LspCxxHlGroupMemberVariable   Identifier
-    hi! link LspCxxHlSymVariable           Identifier
-    hi! link LspCxxHlSymUnknownStaticField Identifier
-    " A name dependent on a template, usually a function but can also be a variable?
-    hi! link LspCxxHlSymDependentName Function
-    hi LspCxxHlSymParameter ctermfg=DarkCyan guifg=DarkCyan
-endfunction
-autocmd FileType c,cpp call s:custom_LspCxxHl()
+" " highlight for vim-lsp-cxx-highlight
+" function s:custom_LspCxxHl()
+"     hi! link LspCxxHlGroupEnumConstant     Constant
+"     hi! link LspCxxHlGroupNamespace        Directory
+"     hi! link LspCxxHlGroupMemberVariable   Identifier
+"     hi! link LspCxxHlSymVariable           Identifier
+"     hi! link LspCxxHlSymUnknownStaticField Identifier
+"     " A name dependent on a template, usually a function but can also be a variable?
+"     hi! link LspCxxHlSymDependentName Function
+"     hi LspCxxHlSymParameter ctermfg=DarkCyan guifg=DarkCyan
+" endfunction
+" autocmd FileType c,cpp call s:custom_LspCxxHl()
 
 " utils for tex
 let g:tex_flavor = "latex"

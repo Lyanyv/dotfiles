@@ -31,7 +31,7 @@
     "event": "",
     "operator": "",
     "typeParameter": "",
-    "default": ""
+    "default": ""
   },
 
   "coc.preferences.jumpCommand": "tabe",
@@ -165,23 +165,23 @@
   // "[c][cpp][python]": { "semanticTokens.enable": false },
 
   // ccls
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": [ "c", "cpp", "cuda", "objc", "objcpp" ],
-      "rootPatterns": [ ".ccls", "compile_commands.json" ],
-      "initializationOptions": {
-        "cache": { "directory": ".ccls-cache", "format": "binary" },
-        "index": { "multiVersion": 0 },
-        "highlight": { "lsRanges": true }
-        // If the project is compiled with MSVC,
-        // don't forget to set the compiler driver in .ccls to clang-cl
-        // "clang.extraArgs": [
-        //   "-fms-extensions",
-        //   "-fms-compatibility",
-        //   "-fdelayed-template-parsing"
-        // ]
-      }
-    }
-  }
+  // "languageserver": {
+  //   "ccls": {
+  //     "command": "ccls",
+  //     "filetypes": [ "c", "cpp", "cuda", "objc", "objcpp" ],
+  //     "rootPatterns": [ ".ccls", "compile_commands.json" ],
+  //     "initializationOptions": {
+  //       "cache": { "directory": ".ccls-cache", "format": "binary" },
+  //       "index": { "multiVersion": 0 },
+  //       "highlight": { "lsRanges": true }
+  //       // If the project is compiled with MSVC,
+  //       // don't forget to set the compiler driver in .ccls to clang-cl
+  //       // "clang.extraArgs": [
+  //       //   "-fms-extensions",
+  //       //   "-fms-compatibility",
+  //       //   "-fdelayed-template-parsing"
+  //       // ]
+  //     }
+  //   }
+  // }
 }
