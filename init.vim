@@ -329,7 +329,7 @@ require'colorizer'.setup({ '*' }, {
 require('illuminate').configure({
     providers = {
         -- 'lsp',
-        'treesitter',
+        -- 'treesitter',
         'regex',
     },
     delay = 100,
