@@ -465,7 +465,7 @@ endif
 if has('win32') && has('gui_running')
     runtime autoload/vimtweak2.vim
     " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(225)
+    autocmd UIEnter * call SetAlpha(235)
     let g:topMost = 0
     nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
     let g:maximize = 0
