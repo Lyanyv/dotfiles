@@ -371,7 +371,7 @@ require("jupynium").setup({
     auto_start_server = { enable = true, file_pattern = { "*.ju.*" }, },
     auto_attach_to_server = { enable = true, file_pattern = { "*.ju.*" }, },
     auto_start_sync = { enable = false, file_pattern = { "*.ju.*" }, },
-    auto_download_ipynb = true,
+    auto_download_ipynb = false,
 
     use_default_keybindings = false,
     textobjects = { use_default_keybindings = false, },
