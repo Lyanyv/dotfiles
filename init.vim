@@ -64,8 +64,8 @@ let g:indent_blankline_space_char_blankline = ' '
 
 let g:indent_blankline_use_treesitter = v:true
 let g:indent_blankline_use_treesitter_scope = v:true
-let g:indent_blankline_show_current_context = v:true
-let g:indent_blankline_show_current_context_start = v:true
+let g:indent_blankline_show_current_context = v:false
+let g:indent_blankline_show_current_context_start = v:false
 let g:indent_blankline_context_highlight_list = ['Label']
 let g:indent_blankline_viewport_buffer = 64
 
@@ -454,7 +454,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ SC\ Nerd\ Font:h13
+set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160
 if !exists('g:nvy') && has('gui_running')
