@@ -27,3 +27,20 @@
 snippet pig "let pyright ignore warnings and errors" w
   # pyright: ignore
 endsnippet
+
+snippet ifmain "create a cmdline entry point for this script" b
+if __name__ == '__main__':
+    
+endsnippet
+
+snippet pypath "append current path to PYTHONPATH" b
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+$1
+sys.path.remove(os.path.dirname(os.path.abspath(__file__)))
+endsnippet
+
+snippet jusep "code cell separator in Jupytext" b
+# %%
+
+endsnippet
