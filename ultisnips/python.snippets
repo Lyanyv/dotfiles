@@ -44,3 +44,10 @@ snippet jusep "code cell separator in Jupytext" b
 # %%
 
 endsnippet
+
+snippet ilog "logging setup" b
+import logging
+logging.basicConfig(
+    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+    level=logging.INFO)
+endsnippet

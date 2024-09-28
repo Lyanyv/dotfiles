@@ -212,6 +212,7 @@ autocmd FileType tex command! -buffer Format
 command OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
+autocmd FileType python nmap <buffer> <leader>v :call CocAction('showOutline', 1)<CR>
 
 " statusline
 set statusline=%#StatusLine#%(%y\ %)%<%f%(\ %h%m%r%)
@@ -454,9 +455,9 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
+set guifont=等距更纱黑体\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
-" args of Nvy: --geometry=120x30 --position=320,160
+" args of Nvy: --geometry=120x30 --position=320,160 --cursor-timeout=2000
 if !exists('g:nvy') && has('gui_running')
     set lines=30 columns=120
 endif
@@ -485,7 +486,7 @@ set virtualedit=block
 set jumpoptions=view
 
 " text display
-set wrap linebreak breakindent showbreak=███
+set wrap linebreak breakindent showbreak===> " ███
 " turn off physical line wrapping (automatic insertion of newlines)
 " but except LaTeX and markdown
 set textwidth=0 wrapmargin=0

@@ -59,6 +59,10 @@
   "list.source.mru.defaultOptions": [ "--auto-preview", "--no-quit" ],
   "list.source.mru.defaultArgs": [ "-A" ],
 
+  // outline
+  "outline.keepWindow": true,
+  "outline.sortBy": "position",  // ["position", "name", "category"]
+
   // coc-word
   "coc.source.word.priority": 0,
   "coc.source.word.filetypes": [ "text", "tex", "latex", "markdown" ],

@@ -4,7 +4,8 @@
 " or execute: vim -S snapshot.vim
 
 silent! let g:plugs['auto-pairs'].commit = '89e7529eaaac766d27c8251fdf14ca50f48c5866'
-silent! let g:plugs['coc.nvim'].commit = 'fab97c7db68f24e5cc3c1cf753d3bd1819beef8f'
+" silent! let g:plugs['coc.nvim'].commit = 'fab97c7db68f24e5cc3c1cf753d3bd1819beef8f'
+silent! let g:plugs['coc.nvim'].commit = '9fd857818977ce9f9f6f7271034fc917dede7035'
 silent! let g:plugs['gruvbox-material'].commit = 'b5f8c6a6c1cda630c53b061b765068a0898d47a3'
 silent! let g:plugs['hop.nvim'].commit = '03f0434869f1f38868618198b5f4f2ab6d39aef2'
 silent! let g:plugs['indent-blankline.nvim'].commit = '4541d690816cb99a7fc248f1486aa87f3abce91c'
