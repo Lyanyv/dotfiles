@@ -9,7 +9,7 @@ set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
 set ambiwidth=single  " required by indent-blankline
 set formatoptions+=mM nojoinspaces
 
-" b e g h u v w x y z
+" b e h u w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -202,6 +202,8 @@ nmap <silent> \e <Cmd>CocList diagnostics<CR>
 nmap <silent> \s <Cmd>CocList symbols<CR>
 nmap <silent> \f <Cmd>CocList files<CR>
 nmap <silent> \g <Cmd>CocList grep<CR>
+nnoremap <silent> <leader>g :exe 'CocList -A --no-quit -I --input=\b'.expand('<cword>').'\b grep -F -e'<CR>
+nnoremap <silent> <leader>G :exe 'CocList -A --no-quit -I --input='.expand('<cword>').' grep -F -e'<CR>
 nmap <silent> \l <Cmd>CocList lines<CR>
 nmap <silent> \m <Cmd>CocList mru<CR>
 
@@ -486,7 +488,8 @@ set virtualedit=block
 set jumpoptions=view
 
 " text display
-set wrap linebreak breakindent showbreak===> " ███
+" ███
+set wrap linebreak breakindent showbreak=\|~>
 " turn off physical line wrapping (automatic insertion of newlines)
 " but except LaTeX and markdown
 set textwidth=0 wrapmargin=0
@@ -572,6 +575,8 @@ tnoremap <Esc> <C-\><C-n>
 nmap <leader><leader> <C-l>
 nmap <leader>o <Cmd>only<CR>
 nmap <leader>p <Cmd>setlocal spell!<CR>
+
+nmap \c /\<TODO\>\\|\<NOTE\>\\|\<XXX\>\\|\<FIX\>\\|\<FIXME\><CR>
 
 " filetype related
 autocmd FileType python nmap <buffer> <F5> :up!<CR>:!python -u %<CR>

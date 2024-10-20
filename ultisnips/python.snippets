@@ -33,11 +33,8 @@ if __name__ == '__main__':
     
 endsnippet
 
-snippet pypath "append current path to PYTHONPATH" b
-import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-$1
-sys.path.remove(os.path.dirname(os.path.abspath(__file__)))
+snippet su "init method of super class" b
+super().__init__()
 endsnippet
 
 snippet jusep "code cell separator in Jupytext" b
@@ -50,4 +47,20 @@ import logging
 logging.basicConfig(
     format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
     level=logging.INFO)
+endsnippet
+
+snippet doc "Docstring in NumPy format" b
+r'''Summarize the function
+
+Parameters
+----------
+var : type
+    description
+
+Returns
+-------
+var : type
+    description
+
+'''
 endsnippet

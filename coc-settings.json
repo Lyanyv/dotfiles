@@ -33,14 +33,17 @@
     "typeParameter": "",
     "default": ""
   },
-
+  // refactor
   "coc.preferences.jumpCommand": "tabe",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  // "codeLens.enable": true,
 
   "list.floatPreview": true,
   "list.alignColumns": true,
   "list.selectedSignText": "",
+  "list.extendedSearchMode": true,
+  "list.previewToplineOffset": 5,
+
+  // diagnostic
   "list.source.diagnostics.defaultOptions": [ "--auto-preview", "--no-quit", "--normal" ],
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
@@ -60,8 +63,14 @@
   "list.source.mru.defaultArgs": [ "-A" ],
 
   // outline
+  "outline.autoPreview": false,
   "outline.keepWindow": true,
   "outline.sortBy": "position",  // ["position", "name", "category"]
+  "outline.expandLevel": 0,
+  // tree
+  "tree.key.activeFilter": "/",
+  "tree.key.collapseAll": "M",
+  "tree.key.toggle": "t",
 
   // coc-word
   "coc.source.word.priority": 0,
