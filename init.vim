@@ -41,9 +41,18 @@ Plug 'junegunn/vim-plug'
 
 Plug 'sainnhe/gruvbox-material'
 let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_foreground = 'mix'
-let g:gruvbox_material_statusline_style = 'mix'
-let g:gruvbox_material_background = 'hard'
+" if strftime("%H") >= 6 && strftime("%H") < 18
+"     let g:gruvbox_material_foreground = 'original'
+"     let g:gruvbox_material_statusline_style = 'original'
+"     let g:gruvbox_material_background = 'soft'
+" else
+"     let g:gruvbox_material_foreground = 'mix'
+"     let g:gruvbox_material_statusline_style = 'mix'
+"     let g:gruvbox_material_background = 'hard'
+" endif
+let g:gruvbox_material_foreground = 'original'
+let g:gruvbox_material_statusline_style = 'original'
+let g:gruvbox_material_background = 'soft'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 
@@ -430,7 +439,12 @@ let loaded_gzip          = 0
 " plugins `editorconfig`, `man.lua` and `matchit` are enabled by default
 
 " ui and font
-set background=dark
+" if strftime("%H") >= 6 && strftime("%H") < 18
+"     set background=light
+" else
+"     set background=dark
+" endif
+set background=light
 " `LineNr`: bg = SpecialKey's fg, fg = Normal's bg
 " be sure that ColorColumn and CursorLine have the same highlight
 function s:gruvbox_material_custom()
@@ -468,7 +482,7 @@ endif
 if has('win32') && has('gui_running')
     runtime autoload/vimtweak2.vim
     " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(235)
+    autocmd UIEnter * call SetAlpha(245)
     let g:topMost = 0
     nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
     let g:maximize = 0

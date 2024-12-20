@@ -24,7 +24,7 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet pig "let pyright ignore warnings and errors" w
+snippet pig "let pyright ignore warnings and errors in this line" w
   # pyright: ignore
 endsnippet
 
@@ -42,13 +42,6 @@ snippet jusep "code cell separator in Jupytext" b
 
 endsnippet
 
-snippet ilog "logging setup" b
-import logging
-logging.basicConfig(
-    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
-    level=logging.INFO)
-endsnippet
-
 snippet doc "Docstring in NumPy format" b
 r'''Summarize the function
 
@@ -63,4 +56,56 @@ var : type
     description
 
 '''
+endsnippet
+
+# import
+snippet ilog "logging setup" b
+import logging
+logging.basicConfig(
+    format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+    level=logging.INFO)
+endsnippet
+
+snippet ios "import os" b
+import os
+endsnippet
+
+snippet isys "import sys" b
+import sys
+endsnippet
+
+snippet itime "import time" b
+import time
+endsnippet
+
+snippet idt "import datetime" b
+import datetime
+endsnippet
+
+snippet ieinops "import einops" b
+from einops import
+endsnippet
+
+snippet iplt "import matplotlib.pyplot" b
+import matplotlib.pyplot as plt
+endsnippet
+
+snippet inp "import numpy" b
+import numpy as np
+endsnippet
+
+snippet icv "import opencv" b
+import cv2 as cv
+endsnippet
+
+snippet itorch "import pytorch" b
+import torch
+endsnippet
+
+snippet inn "import torch.nn" b
+import torch.nn as nn
+endsnippet
+
+snippet innF "import torch.nn.functional" b
+import torch.nn.functional as F
 endsnippet
