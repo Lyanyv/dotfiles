@@ -591,6 +591,7 @@ nmap <leader>o <Cmd>only<CR>
 nmap <leader>p <Cmd>setlocal spell!<CR>
 
 nmap \c /\<TODO\>\\|\<NOTE\>\\|\<XXX\>\\|\<FIX\>\\|\<FIXME\><CR>
+nmap \w / \+$\\|[^^ ] \{2,}<CR>
 
 " filetype related
 autocmd FileType python nmap <buffer> <F5> :up!<CR>:!python -u %<CR>

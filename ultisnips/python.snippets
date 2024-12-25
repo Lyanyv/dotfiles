@@ -37,6 +37,10 @@ snippet su "init method of super class" b
 super().__init__()
 endsnippet
 
+snippet init "init method" b
+def __init__(self, ${1:arg}):
+endsnippet
+
 snippet jusep "code cell separator in Jupytext" b
 # %%
 
@@ -82,8 +86,8 @@ snippet idt "import datetime" b
 import datetime
 endsnippet
 
-snippet ieinops "import einops" b
-from einops import
+snippet ier "import einops.rearrange" b
+from einops import rearrange
 endsnippet
 
 snippet iplt "import matplotlib.pyplot" b
