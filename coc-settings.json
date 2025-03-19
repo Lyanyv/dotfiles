@@ -53,7 +53,7 @@
   "list.source.symbols.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],
 
   // coc-lists
-  "session.saveOnVimLeave": false,
+  "session.saveOnVimLeave": true,
   "list.source.files.defaultOptions": [ "--no-quit" ],
   "list.source.files.defaultArgs": [ "-folder" ],
   "list.source.grep.defaultOptions": [ "--auto-preview", "--no-quit", "--interactive" ],

@@ -471,7 +471,7 @@ augroup GruvboxMaterialCustom
 augroup END
 colorscheme gruvbox-material
 
-set guifont=等距更纱黑体\ SC\ Nerd\ Font:h13
+set guifont=等距更纱黑体\ SC\ Nerd\ Font:h15
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160 --cursor-timeout=2000
 if !exists('g:nvy') && has('gui_running')
@@ -482,7 +482,7 @@ endif
 if has('win32') && has('gui_running')
     runtime autoload/vimtweak2.vim
     " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(245)
+    autocmd UIEnter * call SetAlpha(247)
     let g:topMost = 0
     nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
     let g:maximize = 0
@@ -509,7 +509,7 @@ set wrap linebreak breakindent showbreak=\|~>
 set textwidth=0 wrapmargin=0
 autocmd FileType * call s:setlocal_textwidth()
 function s:setlocal_textwidth()
-    if &filetype=='tex' || &filetype=='markdown' | setlocal textwidth=80
+    if &filetype=='tex' | setlocal textwidth=80
         \ | else | setlocal textwidth=0 | endif
     setlocal wrapmargin=0
 endfunction
