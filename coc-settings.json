@@ -31,7 +31,7 @@
     "event": "",
     "operator": "",
     "typeParameter": "",
-    "default": ""
+    "default": ""
   },
   // refactor
   "coc.preferences.jumpCommand": "tabe",
@@ -97,7 +97,7 @@
 
   "pyright.completion.importSupport": true,
   "pyright.completion.snippetSupport": true,
-  "python.analysis.autoSearchPaths": true,
+  "python.analysis.autoSearchPaths": false,
   "python.analysis.diagnosticMode": "openFilesOnly",
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.autoImportCompletions": false,
@@ -105,39 +105,25 @@
   "pyright.inlayHints.functionReturnTypes": false,
 
   // coc-markdownlint
-  "[markdown]": {
-    "diagnostic.enableMessage": "never",
-    "diagnostic.virtualText": true,
-    "diagnostic.virtualTextAlign": "after",
-    "diagnostic.virtualTextCurrentLineOnly": true,
-  },
   "markdownlint.onOpen": true,
+  "markdownlint.onSave": true,
   // set this to true may cause this extension to stop working
   "markdownlint.onChange": false,
-  "markdownlint.onSave": true,
   "markdownlint.config": {
     "default": true,
     "MD001": false,
-    "MD003": { "style": "atx" },
-    "MD004": { "style": "dash" },
-    "MD007": {
-      "indent": 4,
-      "start_indented": false
-    },
+    "MD007": { "indent": 4 },
     "MD010": {
       "code_blocks": true,
       "spaces_per_tab": 4
     },
-    "MD012": { "maximum": 2 },
     "MD013": false,
     "MD024": { "siblings_only": true },
     "MD028": false,
-    // "MD029": { "style": "ordered" },
-    "MD029": false,
+    "MD029": { "style": "ordered" },
     "MD032": false,
     "MD033": false,
     "MD036": false,
-    "MD040": false,
     "MD041": false,
     "MD045": false,
     "MD046": { "style": "fenced" },
@@ -145,9 +131,15 @@
     "MD048": { "style": "backtick" },
     "MD049": { "style": "asterisk" },
     "MD050": { "style": "asterisk" },
-    "MD053": { "ignored_definitions": [
-      "//"
-    ]}
+    "MD054": {
+      "autolink": false,
+      "collapsed": false,
+      "full": false,
+      "inline": true,
+      "shortcut": false,
+      "url_inline": false,
+    },
+    "MD055": { "style": "leading_and_trailing" },
   },
 
   // coc-texlab

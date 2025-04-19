@@ -5,11 +5,18 @@
 " debugger,      git support
 
 " multibyte charsets
-set fileencodings=ucs-bom,utf-8,gb2312,cp936,gbk,gb18030,latin1
-set ambiwidth=single  " required by indent-blankline
+set fileencodings=ucs-bom,utf-8,gb18030,gbk,cp936,gb2312,latin1
+set ambiwidth=double
+call setcellwidths([
+    \ [0x00ac, 0x00ac, 1],
+    \ [0x2423, 0x2423, 1],
+    \ [0x2588, 0x2588, 1],
+    \ [0x258f, 0x258f, 1],
+    \ [0x2591, 0x2593, 1],
+    \ [0x25e6, 0x25e6, 1],
+  \ ])
 set formatoptions+=mM nojoinspaces
 
-" b e h u w x y z
 let mapleader = ' '
 " requires `pynvim` and `neovim-remote`
 let g:python3_host_prog='python'
@@ -41,43 +48,22 @@ Plug 'junegunn/vim-plug'
 
 Plug 'sainnhe/gruvbox-material'
 let g:gruvbox_material_better_performance = 1
-" if strftime("%H") >= 6 && strftime("%H") < 18
-"     let g:gruvbox_material_foreground = 'original'
-"     let g:gruvbox_material_statusline_style = 'original'
-"     let g:gruvbox_material_background = 'soft'
-" else
-"     let g:gruvbox_material_foreground = 'mix'
-"     let g:gruvbox_material_statusline_style = 'mix'
-"     let g:gruvbox_material_background = 'hard'
-" endif
 let g:gruvbox_material_foreground = 'original'
 let g:gruvbox_material_statusline_style = 'original'
-let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_background = 'medium'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 
 let g:gruvbox_material_transparent_background = 0
 let g:gruvbox_material_dim_inactive_windows = 1
-let g:gruvbox_material_visual = 'red background'
+let g:gruvbox_material_visual = 'blue background'
 let g:gruvbox_material_current_word = 'reverse'
-let g:gruvbox_material_menu_selection_background = 'green'
+let g:gruvbox_material_menu_selection_background = 'purple'
 let g:gruvbox_material_spell_foreground = 'colored'
 let g:gruvbox_material_diagnostic_text_highlight = 1
 
-Plug 'norcalli/nvim-colorizer.lua'
-
+Plug 'catgoose/nvim-colorizer.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
-let g:indent_blankline_show_end_of_line = v:true
-let g:indent_blankline_show_trailing_blankline_indent = v:true
-let g:indent_blankline_space_char_blankline = ' '
-
-let g:indent_blankline_use_treesitter = v:true
-let g:indent_blankline_use_treesitter_scope = v:true
-let g:indent_blankline_show_current_context = v:false
-let g:indent_blankline_show_current_context_start = v:false
-let g:indent_blankline_context_highlight_list = ['Label']
-let g:indent_blankline_viewport_buffer = 64
-
 Plug 'RRethy/vim-illuminate'
 " <A-p> & <A-n>: move previous/next reference
 " <A-i>: select the cursor-text-object
@@ -109,29 +95,28 @@ let g:AutoPairsCompleteOnlyOnSpace = 0
 let g:AutoPairsSingleQuoteMode = 0
 autocmd FileType python let b:AutoPairsSingleQuoteMode = 2
 " balance management
-let g:AutoPairsPreferClose = 0  " prefer to jump
+let g:AutoPairsPreferClose = 1
 let g:AutoPairsMultilineClose = 1
-let g:AutoPairsMultilineCloseDeleteSpace = 0
+let g:AutoPairsMultilineCloseDeleteSpace = 1
 let g:AutoPairsSearchCloseAfterSpace = 1
 let g:AutoPairsStringHandlingMode = 0  " since syntax is killed by treesitter
-" jump and fly mode
+" jump
 let g:AutoPairsNoJump = 0
-let g:AutoPairsFlyMode = 0
 " fast wrap
 let g:AutoPairsShortcutFastWrap = "<C-b>"
-let g:AutoPairsMultilineFastWrap = 0
+let g:AutoPairsMultilineFastWrap = 1
 let g:AutoPairsMultibyteFastWrap = 1
 
 Plug 'psliwka/vim-smoothie'
-Plug 'phaazon/hop.nvim'
+Plug 'smoka7/hop.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 " highlight, indent and fold
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set nofoldenable  " disable folding at startup
+" :TSInstall all
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+" set nofoldenable  " disable folding at startup
 
-Plug 'neoclide/coc.nvim', { 'branch': 'master',
-            \ 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 let g:coc_global_extensions = [ 'coc-json', 'coc-lists', 'coc-markdownlint',
             \ 'coc-pyright', 'coc-snippets', 'coc-texlab', 'coc-word' ]
 
@@ -154,7 +139,6 @@ nmap <silent> <leader>i <Plug>(coc-implementation)
 nmap <silent> <leader>t <Plug>(coc-type-definition)
 nmap <silent> <leader>r <Plug>(coc-references)
 nmap <leader>n <Plug>(coc-rename)
-nmap <leader>f <Plug>(coc-codeaction-cursor)
 
 nnoremap <silent> K <Cmd>call <SID>show_doc()<CR>
 function s:show_doc()
@@ -197,12 +181,20 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+" scroll float windows/popups
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : "\<Nop>"
+imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<Nop>"
+
 " snippets and signature
 autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
-vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-x> <Plug>(coc-snippets-select)
 
 " coc-lists
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -212,7 +204,6 @@ nmap <silent> \s <Cmd>CocList symbols<CR>
 nmap <silent> \f <Cmd>CocList files<CR>
 nmap <silent> \g <Cmd>CocList grep<CR>
 nnoremap <silent> <leader>g :exe 'CocList -A --no-quit -I --input=\b'.expand('<cword>').'\b grep -F -e'<CR>
-nnoremap <silent> <leader>G :exe 'CocList -A --no-quit -I --input='.expand('<cword>').' grep -F -e'<CR>
 nmap <silent> \l <Cmd>CocList lines<CR>
 nmap <silent> \m <Cmd>CocList mru<CR>
 
@@ -220,14 +211,13 @@ nmap <silent> \m <Cmd>CocList mru<CR>
 command Format :call CocActionAsync('format')
 autocmd FileType tex command! -buffer Format
     \ echoerr "latexindent's behavior is weird, use `gq` instead"
-command OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
+command Or :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 autocmd FileType tex nmap <buffer> <leader>i :CocCommand latex.ForwardSearch<CR>
 autocmd FileType tex nmap <buffer> <F5> :up!<CR>:CocCommand latex.Build<CR>
 autocmd FileType python nmap <buffer> <leader>v :call CocAction('showOutline', 1)<CR>
 
 " statusline
 set statusline=%#StatusLine#%(%y\ %)%<%f%(\ %h%m%r%)
-" set statusline+=%#Label#%=%(%.32{get(g:,'coc_status','')}\ \|\ %)
 set statusline+=%#Label#%=%(%.50{TruncatedCocStatus(50)}\ \|\ %)
 set statusline+=%#Function#%(%{get(b:,'coc_current_function','')}\ \|\ %)
 set statusline+=%#CocErrorSign#%-4.{CocDiagnosticsStatus('error')}
@@ -261,9 +251,6 @@ autocmd User CocStatusChange redrawstatus
 "    folder of current buffer
 " 3. `g:WorkspaceFolders` stores workspace folders
 " to enable multiple workspace folders, open at least one file of each folder
-
-" Plug 'jackguo380/vim-lsp-cxx-highlight'
-" " :LspCxxHlCursorSym
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 let g:mkdp_auto_start = 0
@@ -333,10 +320,22 @@ let g:AutoPairs = autopairs#AutoPairsDefine([
 " set by lua
 if has('termguicolors') | set termguicolors | endif
 lua << EOF
-require'colorizer'.setup({ '*' }, {
-    RGB    = false;
-    RRGGBB = true;
-    names  = true;
+require("colorizer").setup({
+    filetypes = { "*" },
+    user_commands = false,
+    names = true,
+    names_opts = { -- options for mutating/filtering names.
+        lowercase = true, -- name:lower(), highlight `blue` and `red`
+        camelcase = true, -- name, highlight `Blue` and `Red`
+        uppercase = false, -- name:upper(), highlight `BLUE` and `RED`
+        strip_digits = false, -- ignore names with digits,
+        -- highlight `blue` and `red`, but not `blue3` and `red4`
+    },
+    RGB = false, -- #RGB hex codes
+    RGBA = false, -- #RGBA hex codes
+    RRGGBB = true, -- #RRGGBB hex codes
+    RRGGBBAA = false, -- #RRGGBBAA hex codes
+    AARRGGBB = false, -- 0xAARRGGBB hex codes
 })
 require('illuminate').configure({
     providers = {
@@ -348,7 +347,7 @@ require('illuminate').configure({
     -- `:help mode()`, Normal and Terminal modes
     -- flicker when enter and quit Operator-pending modes
     -- seems that Operator-pending modes will block Vim
-    modes_allowlist = { 'n', 'niI', 'niR', 'niV', 't', 'nt', 'ntT', },
+    modes_allowlist = { 'n', 't', 'nt', 'ntT', },
 })
 require'hop'.setup {
     case_insensitive = false,
@@ -357,10 +356,6 @@ require'hop'.setup {
 }
 require'nvim-treesitter.configs'.setup {
     -- run Neovim via Visual Studio's "x64 Native Tools Command Prompt" console
-    ensure_installed = { 'bibtex', 'c', 'comment', 'cpp', 'json', 'jsonc',
-                         'latex', 'markdown', 'markdown_inline', 'python',
-                         'query', 'vim', 'vimdoc',
-    },
     sync_install = true,
     auto_install = false,
     prefer_git = true,
@@ -393,9 +388,7 @@ require("jupynium").setup({
 EOF
 
 map s <Cmd>HopChar2<CR>
-nmap s <Cmd>HopChar2MW<CR>
 map <leader>l <Cmd>HopLine<CR>
-nmap <leader>l <Cmd>HopLineMW<CR>
 map <leader>j <Cmd>HopVerticalAC<CR>
 map <leader>k <Cmd>HopVerticalBC<CR>
 
@@ -439,12 +432,7 @@ let loaded_gzip          = 0
 " plugins `editorconfig`, `man.lua` and `matchit` are enabled by default
 
 " ui and font
-" if strftime("%H") >= 6 && strftime("%H") < 18
-"     set background=light
-" else
-"     set background=dark
-" endif
-set background=light
+set background=dark
 " `LineNr`: bg = SpecialKey's fg, fg = Normal's bg
 " be sure that ColorColumn and CursorLine have the same highlight
 function s:gruvbox_material_custom()
@@ -457,12 +445,12 @@ function s:gruvbox_material_custom()
     call gruvbox_material#highlight('ColorColumn', palette.none, palette.bg_visual_blue)
 
     call gruvbox_material#highlight('CocVirtualText', palette.bg5, palette.none)
-    " call gruvbox_material#highlight('VirtualTextError', palette.grey2, palette.bg_visual_red)
-    call gruvbox_material#highlight('VirtualTextWarning', palette.grey2, palette.bg_visual_yellow)
-    " call gruvbox_material#highlight('VirtualTextInfo', palette.grey2, palette.bg_visual_blue)
-    " call gruvbox_material#highlight('VirtualTextHint', palette.grey2, palette.bg_visual_green)
+    call gruvbox_material#highlight('VirtualTextError', palette.grey2, palette.bg_visual_red, 'underline')
+    call gruvbox_material#highlight('VirtualTextWarning', palette.grey2, palette.bg_visual_yellow, 'underline')
+    call gruvbox_material#highlight('VirtualTextInfo', palette.grey2, palette.bg_visual_blue, 'underline')
+    call gruvbox_material#highlight('VirtualTextHint', palette.grey2, palette.bg_visual_green, 'underline')
 
-    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_red)
+    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_blue)
     call gruvbox_material#highlight('JupyniumShortsighted', palette.none, palette.bg_dim)
 endfunction
 augroup GruvboxMaterialCustom
@@ -470,6 +458,20 @@ augroup GruvboxMaterialCustom
     autocmd ColorScheme gruvbox-material call s:gruvbox_material_custom()
 augroup END
 colorscheme gruvbox-material
+
+lua << EOF
+require("ibl").setup {
+    indent = {
+        char = "▏",
+        highlight = {
+            "Purple", "Blue", "Aqua", "Green", "Yellow", "Orange", "Red",
+        },
+        repeat_linebreak = false,
+    },
+    whitespace = { remove_blankline_trail = false },
+    scope = { enabled = false },
+}
+EOF
 
 set guifont=等距更纱黑体\ SC\ Nerd\ Font:h15
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
@@ -493,7 +495,7 @@ endif
 set title
 set signcolumn=number number norelativenumber numberwidth=3
 set colorcolumn=81 nocursorline
-set laststatus=3
+set laststatus=2
 set noruler  " since it's redefined
 
 " movement
@@ -502,10 +504,9 @@ set virtualedit=block
 set jumpoptions=view
 
 " text display
-" ███
-set wrap linebreak breakindent showbreak=\|~>
+set wrap nolinebreak breakindent showbreak=\|~>
 " turn off physical line wrapping (automatic insertion of newlines)
-" but except LaTeX and markdown
+" but except LaTeX
 set textwidth=0 wrapmargin=0
 autocmd FileType * call s:setlocal_textwidth()
 function s:setlocal_textwidth()
@@ -515,14 +516,14 @@ function s:setlocal_textwidth()
 endfunction
 
 set display=lastline,uhex conceallevel=0
-set list listchars=space:◦,trail:▓,eol:¬  " ␣░▒▓█
+" ◦␣¬░▒▓█
+set list listchars=space:◦,trail:█,eol:¬
 
 set nospell spelllang=en,cjk
-autocmd FileType text,tex,markdown setlocal nospell
 set showmatch
 
 " other info
-set wildmenu wildmode=longest,full  " smart wildmenu completion
+set wildmenu wildmode=longest,full
 set report=0
 set shortmess-=F shortmess+=mrI
 set belloff=
@@ -533,7 +534,7 @@ set clipboard=unnamedplus
 
 " dir and files
 set autochdir noautoread
-set updatetime=300
+set updatetime=200
 set backup undofile backupdir-=.
 
 " some keys' behaviors
@@ -543,24 +544,22 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType c,cpp,json,jsonc,yaml
     \ setlocal tabstop=2 softtabstop=2 shiftwidth=2
 set backspace=2
-set mouse=a mousemodel=popup mousehide  " Nvy doesn't support `mousehide`
+set mouse=a mousemodel=popup mousehide
 set mousescroll=ver:2,hor:4
 
 " key mappings
-" movement related
+" movement
 " horizontal
 map <leader>a ^
 " hold selection when shifting sidewards
-" xnoremap < <gv
-" xnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 " vertical
 " j/k will move over virtual lines (lines that wrap)
 noremap <expr> j  (v:count == 0 ? 'gj' : 'j')
 noremap <expr> k  (v:count == 0 ? 'gk' : 'k')
 map <expr> <Down> (v:count == 0 ? 'gj' : 'j')
 map <expr> <Up>   (v:count == 0 ? 'gk' : 'k')
-" imap <Down> <C-o>gj
-" imap <Up> <C-o>gk
 " search smartly, centrally and smoothly
 nnoremap n <Cmd>call feedkeys('Nn'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
 nnoremap N <Cmd>call feedkeys('nN'[v:searchforward], 'n')<Bar>call feedkeys('zz')<CR>
@@ -579,9 +578,8 @@ nmap gB <Cmd>bprevious<CR>
 " insert and cmdline
 imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
-iabbrev txt2md [//]: vim:ft=markdown
 nmap ： :
-" In Terminal mode, type `<C-\><C-n>` to go to Normal mode
+" In Terminal mode, type `<C-\><C-n>` to enter Normal mode
 " NOTE: Some processes really rely on `<Esc>`, e.g. Neovim nested in Terminal
 tnoremap <Esc> <C-\><C-n>
 
@@ -590,7 +588,7 @@ nmap <leader><leader> <C-l>
 nmap <leader>o <Cmd>only<CR>
 nmap <leader>p <Cmd>setlocal spell!<CR>
 
-nmap \c /\<TODO\>\\|\<NOTE\>\\|\<XXX\>\\|\<FIX\>\\|\<FIXME\><CR>
+nmap \c /\<TODO\>\\|\<NOTE\>\\|\<XXX\>\\|\<FIX\>\\|\<FIXME\>\\|\<BUG\><CR>
 nmap \w / \+$\\|[^^ ] \{2,}<CR>
 
 " filetype related
@@ -631,19 +629,6 @@ hi! link @text.quote Comment
 hi! link JupyniumCodeCellSeparator     MatchParen
 hi! link JupyniumMarkdownCellSeparator MatchParen
 hi! link JupyniumMagicCommand          Keyword
-
-" " highlight for vim-lsp-cxx-highlight
-" function s:custom_LspCxxHl()
-"     hi! link LspCxxHlGroupEnumConstant     Constant
-"     hi! link LspCxxHlGroupNamespace        Directory
-"     hi! link LspCxxHlGroupMemberVariable   Identifier
-"     hi! link LspCxxHlSymVariable           Identifier
-"     hi! link LspCxxHlSymUnknownStaticField Identifier
-"     " A name dependent on a template, usually a function but can also be a variable?
-"     hi! link LspCxxHlSymDependentName Function
-"     hi LspCxxHlSymParameter ctermfg=DarkCyan guifg=DarkCyan
-" endfunction
-" autocmd FileType c,cpp call s:custom_LspCxxHl()
 
 " utils for tex
 let g:tex_flavor = "latex"
@@ -700,8 +685,8 @@ autocmd BufReadPost *
     \ | exe "normal! g`\"" | call feedkeys('zzzv', 'n') | let b:jumped = 1 | endif
 
 " tips
-" to find user config dir `:echo stdpath('config')`
-autocmd BufReadPost coc-settings.json set filetype=jsonc
+" user config dir `:echo stdpath('config')`
+autocmd BufRead coc-settings.json set filetype=jsonc
 command Vimrc execute('CocConfig') | vsplit $MYVIMRC
 command HtmlColorNames exec 'tabe ' .. stdpath("config") .. '/mds/HtmlColorNames.md'
 " `<Cmd>...<CR>` in key mappings
