@@ -20,7 +20,6 @@ Pink                 DeepPink
 LightPink            MediumVioletRed
 HotPink              PaleVioletRed
 
-
 ## Purple  
 
 Lavender             BlueViolet

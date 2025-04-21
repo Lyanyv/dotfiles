@@ -613,8 +613,7 @@ hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
 
 " highlight for treesitter
-" hi! link TSVariable Identifier
-hi TSParameter ctermfg=DarkCyan guifg=DarkCyan
+hi @variable.parameter ctermfg=DarkCyan guifg=DarkCyan
 
 " highlight for markdown
 hi! link @text.title1 markdownH1
