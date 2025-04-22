@@ -461,6 +461,7 @@ colorscheme gruvbox-material
 
 lua << EOF
 require("ibl").setup {
+    viewport_buffer = { min = 1024 },
     indent = {
         char = "▏",
         highlight = {
