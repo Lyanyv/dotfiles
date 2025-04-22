@@ -594,6 +594,9 @@ tnoremap <Esc> <C-\><C-n>
 nmap <leader><leader> <C-l>
 nmap <leader>o <Cmd>only<CR>
 nmap <leader>p <Cmd>setlocal spell!<CR>
+" as a hotkey of GoldenDict
+nmap <C-c>c <Nop>
+nmap <C-c> <Nop>
 
 nmap \c /\<TODO\>\\|\<NOTE\>\\|\<XXX\>\\|\<FIX\>\\|\<FIXME\>\\|\<BUG\><CR>
 nmap \w / \+$\\|[^^ ]\zs \{2,}<CR>
