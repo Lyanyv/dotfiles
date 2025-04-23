@@ -556,6 +556,7 @@ set mousescroll=ver:2,hor:4
 " movement
 " horizontal
 map <leader>a ^
+map <leader>e $
 " hold selection when shifting sidewards
 xnoremap < <gv
 xnoremap > >gv
