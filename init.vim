@@ -436,7 +436,7 @@ let loaded_gzip          = 0
 " ui and font
 set background=dark
 " `LineNr`: bg = SpecialKey's fg, fg = Normal's bg
-" be sure that ColorColumn and CursorLine have the same highlight
+" be sure that ColorColumn and CursorLine/CursorColumn have the same highlight
 function s:gruvbox_material_custom()
     let palette = gruvbox_material#get_palette(
         \ g:gruvbox_material_background,
@@ -444,6 +444,7 @@ function s:gruvbox_material_custom()
     call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5, 'bold')
     call gruvbox_material#highlight('CursorLineNr', palette.fg0, palette.bg0, 'bold')
     call gruvbox_material#highlight('CursorLine', palette.none, palette.bg_visual_blue)
+    call gruvbox_material#highlight('CursorColumn', palette.none, palette.bg_visual_blue)
     call gruvbox_material#highlight('ColorColumn', palette.none, palette.bg_visual_blue)
 
     call gruvbox_material#highlight('CocVirtualText', palette.bg5, palette.none)
