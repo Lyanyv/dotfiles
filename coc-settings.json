@@ -78,7 +78,7 @@
   "coc.source.word.filetypes": [ "text", "tex", "latex", "markdown" ],
 
   // coc-snippets
-  "snippet.nextPlaceholderOnDelete": true,
+  "snippet.nextPlaceholderOnDelete": false,
   "snippets.autoTrigger": true,
   "snippets.ultisnips.enable": true,
   "snippets.ultisnips.directories": [],
