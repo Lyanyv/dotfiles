@@ -37,6 +37,7 @@
   "coc.preferences.jumpCommand": "tabe",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "signature.preferShownAbove": false,
+  "signature.hideOnTextChange": false,
 
   "list.floatPreview": true,
   "list.alignColumns": true,

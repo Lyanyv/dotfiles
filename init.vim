@@ -192,8 +192,10 @@ imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scr
 imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<Nop>"
 
 " snippets and signature
-autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
+" autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+imap <silent> <C-h> <Cmd>call CocActionAsync('showSignatureHelp')<CR>
+vmap <silent> <C-h> <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 let g:coc_snippet_prev = '<C-k>'
 let g:coc_snippet_next = '<C-j>'
 vmap <C-x> <Plug>(coc-snippets-select)
