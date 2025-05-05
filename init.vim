@@ -184,12 +184,21 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " scroll float windows/popups
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : "\<Nop>"
-imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : "\<Nop>"
+function s:scroll_float(forward)
+    if coc#float#has_scroll()
+        call coc#float#scroll(a:forward)
+    elseif a:forward == 1
+        call smoothie#do("\<C-f>")
+    elseif a:forward == 0
+        call smoothie#do("\<C-b>")
+    endif
+endfunction
+nnoremap <silent><nowait> <C-f> <Cmd>call <SID>scroll_float(1)<CR>
+nnoremap <silent><nowait> <C-b> <Cmd>call <SID>scroll_float(0)<CR>
+vnoremap <silent><nowait> <C-f> <Cmd>call <SID>scroll_float(1)<CR>
+vnoremap <silent><nowait> <C-b> <Cmd>call <SID>scroll_float(0)<CR>
+imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<CR>" : ''
+imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<CR>" : ''
 
 " snippets and signature
 " autocmd CursorHoldI * silent call CocActionAsync('showSignatureHelp')
