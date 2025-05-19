@@ -44,11 +44,11 @@ snippet link "url" b
 [$1]($2 )
 endsnippet
 
-snippet vcf "colored font html tag with VISUAL selection" i
+snippet vcf "color font html tag with VISUAL selection" w
 <font color="${1:Tomato}" size="${2:3}">${VISUAL}</font>
 endsnippet
 
-snippet cf "colored font html tag" i
+snippet cf "color font html tag" w
 <font color="${1:Tomato}" size="${2:3}">$3</font>
 endsnippet
 
@@ -85,4 +85,12 @@ endsnippet
 
 snippet cmt "comment" b
 [//]: $1
+endsnippet
+
+snippet ckl "checklist item" b
+- [${1: }] $2
+endsnippet
+
+snippet cf_tex "color font in tex. Recommended colors: Tomato, Gold, MediumSeaGreen, DodgerBlue, DarkGray" w
+\$\\color\{${1:Tomato}\}\{\\texttt\{$2\}\}\$
 endsnippet
