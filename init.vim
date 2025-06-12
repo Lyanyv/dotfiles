@@ -508,6 +508,7 @@ endif
 
 " layout
 set title
+set titlestring=%t%(\ %M%)%(\ \(%{expand(\"%:p:~:h\")}\)%)%a\ -\ Nvim
 set signcolumn=number number norelativenumber numberwidth=3
 set colorcolumn=81 nocursorline
 set laststatus=2
