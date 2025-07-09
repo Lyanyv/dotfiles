@@ -12,6 +12,7 @@ call setcellwidths([
     \ [0x03B1, 0x03C9, 1],
     \ [0x00ac, 0x00ac, 1],
     \ [0x2423, 0x2423, 1],
+    \ [0x2506, 0x2506, 1],
     \ [0x2588, 0x2588, 1],
     \ [0x258f, 0x258f, 1],
     \ [0x2591, 0x2593, 1],
@@ -377,7 +378,7 @@ require'nvim-treesitter.configs'.setup {
         -- disable = { 'c', 'cpp', },
         additional_vim_regex_highlighting = false,  -- will disable syntax
     },
-    indent = { enable = true },
+    indent = { enable = false },
 }
 require("jupynium").setup({
     python_host = vim.g.python3_host_prog,
@@ -477,7 +478,7 @@ lua << EOF
 require("ibl").setup {
     viewport_buffer = { min = 1024 },
     indent = {
-        char = "▏",
+        char = "┆", -- "▏",
         highlight = {
             "Purple", "Blue", "Aqua", "Green", "Yellow", "Orange", "Red",
         },
@@ -561,6 +562,12 @@ autocmd FileType * set expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType c,cpp,json,jsonc,yaml
     \ setlocal tabstop=2 softtabstop=2 shiftwidth=2
+let g:python_indent = {}
+let g:python_indent.open_paren = 'shiftwidth()'
+let g:python_indent.nested_paren = 'shiftwidth()'
+let g:python_indent.continue = 'shiftwidth()'
+let g:python_indent.closed_paren_align_last_line = v:false
+
 set backspace=indent,eol,start
 set mouse=a mousemodel=popup mousehide
 set mousescroll=ver:2,hor:4
