@@ -643,7 +643,8 @@ autocmd FileType tex command! -buffer Pdf2Svg
 set pumblend=0 winblend=0
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
-hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
+" hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
+hi Cursor cterm=None gui=None ctermbg=62 guibg=#6A5ACD
 
 " highlight for treesitter
 hi @variable.parameter ctermfg=DarkCyan guifg=DarkCyan
