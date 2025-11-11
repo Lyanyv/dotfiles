@@ -77,7 +77,7 @@
 
   // coc-word
   "coc.source.word.priority": 0,
-  "coc.source.word.filetypes": [ "text", "tex", "latex", "markdown" ],
+  "coc.source.word.filetypes": [ "text", "tex", "latex", "bib", "markdown" ],
 
   // coc-snippets
   "snippet.nextPlaceholderOnDelete": false,
