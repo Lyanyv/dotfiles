@@ -53,7 +53,7 @@ Plug 'sainnhe/gruvbox-material'
 let g:gruvbox_material_better_performance = 1
 let g:gruvbox_material_foreground = 'original'
 let g:gruvbox_material_statusline_style = 'original'
-let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 
@@ -489,7 +489,7 @@ require("ibl").setup {
 }
 EOF
 
-set guifont=等距更纱黑体\ SC\ Nerd\ Font:h15
+set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 " args of Nvy: --geometry=120x30 --position=320,160 --cursor-timeout=2000
 if !exists('g:nvy') && has('gui_running')
