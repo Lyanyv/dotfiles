@@ -168,6 +168,7 @@
   "texlab.build.forwardSearchAfter": true,
   "texlab.chktex.onOpenAndSave": true,
   "texlab.chktex.onEdit": false,
+  "[latex]": { "inlayHint.position": "eol" },
 
   "semanticTokens.enable": false,
   // pyright ×: bad highlight
