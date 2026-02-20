@@ -16,7 +16,6 @@ call setcellwidths([
     \ [0x2588, 0x2588, 1],
     \ [0x258f, 0x258f, 1],
     \ [0x2591, 0x2593, 1],
-    \ [0x25e6, 0x25e6, 1],
   \ ])
 set formatoptions+=mM nojoinspaces
 
@@ -447,7 +446,7 @@ let loaded_gzip          = 0
 
 " ui and font
 set background=dark
-" `LineNr`: bg = SpecialKey's fg, fg = Normal's bg
+" `LineNr`: bg = NonText's fg, fg = Normal's bg
 " be sure that ColorColumn and CursorLine/CursorColumn have the same highlight
 function s:gruvbox_material_custom()
     let palette = gruvbox_material#get_palette(
@@ -489,22 +488,28 @@ require("ibl").setup {
 }
 EOF
 
-set guifont=等距更纱黑体\ Slab\ SC\ Nerd\ Font:h13
 set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
-" args of Nvy: --geometry=120x30 --position=320,160 --cursor-timeout=2000
-if !exists('g:nvy') && has('gui_running')
-    set lines=30 columns=120
-endif
+if exists("g:neovide")
+    set lines=34 columns=108
+    let g:neovide_remember_window_size = v:false
 
-" VimTweak
-if has('win32') && has('gui_running')
-    runtime autoload/vimtweak2.vim
-    " recommended value: 200~255
-    autocmd UIEnter * call SetAlpha(247)
-    let g:topMost = 0
-    nmap <leader>q <Cmd>let g:topMost = 1 - g:topMost<Bar>call EnableTopMost(g:topMost)<CR>
-    let g:maximize = 0
-    nmap <leader>m <Cmd>let g:maximize = 1 - g:maximize<Bar>call EnableMaximize(g:maximize)<CR>
+    set linespace=1
+    set guifont=Monoid\ Nerd\ Font,NSimSun:h10:#e-subpixelantialias
+
+    let g:neovide_opacity = 0.95
+    let g:neovide_normal_opacity = 0.95
+    let g:neovide_theme = 'dark'
+
+    let g:neovide_hide_mouse_when_typing = v:true
+
+    let g:neovide_input_ime=v:false
+    augroup ime_input
+        autocmd!
+        autocmd InsertLeave * let g:neovide_input_ime=v:false
+        autocmd InsertEnter * let g:neovide_input_ime=v:true
+        " autocmd CmdlineLeave * let g:neovide_input_ime=v:false
+        " autocmd CmdlineEnter * let g:neovide_input_ime=v:true
+    augroup END
 endif
 
 " layout
@@ -517,11 +522,11 @@ set noruler  " since it's redefined
 
 " movement
 set scrolloff=0 nostartofline
-set virtualedit=block
+set virtualedit=block,onemore
 set jumpoptions=view
 
 " text display
-set wrap nolinebreak breakindent showbreak=\|~>
+set wrap nolinebreak breakindent showbreak===>
 " turn off physical line wrapping (automatic insertion of newlines)
 " but except LaTeX
 set textwidth=0 wrapmargin=0
@@ -533,11 +538,11 @@ function s:setlocal_textwidth()
 endfunction
 
 set display=lastline,uhex conceallevel=0
-" ◦␣¬░▒▓█
-set list listchars=space:◦,trail:█,eol:¬,nbsp:␣
+" ￭␣¬░▒▓█
+set list listchars=space:￭,trail:█,eol:¬,nbsp:␣
 
 set nospell spelllang=en,cjk
-set showmatch
+set noshowmatch
 
 " other info
 set wildmenu wildmode=longest,full
@@ -606,7 +611,8 @@ nmap gB <Cmd>bprevious<CR>
 " insert and cmdline
 imap <C-Tab> <C-t>
 iabbrev idate <C-r>=strftime('%y/%m/%d %H:%M:%S')<CR>
-nmap ： :
+" nmap ： :
+
 " In Terminal mode, type `<C-\><C-n>` to enter Normal mode
 " NOTE: Some processes really rely on `<Esc>`, e.g. Neovim nested in Terminal
 tnoremap <Esc> <C-\><C-n>
@@ -640,7 +646,7 @@ autocmd FileType tex command! -buffer Pdf2Svg
 " nnoremap & :&&<CR>
 
 " highlight
-set pumblend=0 winblend=0
+set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
 " hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F

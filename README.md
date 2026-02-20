@@ -29,11 +29,9 @@ If you're using Conda virtual environment, don't forget to specify these two var
 - `g:python3_host_prog`  
 - `g:conda_env`  
 
-2. GUI/client: [Nvy](https://github.com/RMichelsen/Nvy/releases)  
+2. GUI/client: [Neovide](https://github.com/neovide/neovide )  
 
-> Builtin `neovim-qt/nvim-qt` doesn't support `Direct Write`  
-
-3. `guifont`: 等距更纱黑体 Slab SC Nerd Font [sarasa-mono-sc-nerd-font](https://github.com/jonz94/Sarasa-Gothic-Nerd-Fonts/releases)  
+3. `guifont`: [Monoid Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Monoid )  
 
 4. `junegunn/vim-plug`: put `plug.vim` in `stdpath('data') . '/site/autoload'`  
     - default plug path: `stdpath('data') . '/plugged'`  
@@ -96,4 +94,4 @@ See the beginning of `init.vim`
 
 # Bonus
 
-See `coc-lists-ripgrep.md`, `ccls.md`, `jupynium.nvim.md` and `VimTweak.md`  
+See `coc-lists-ripgrep.md`, `ccls.md` and `jupynium.nvim.md`.  
