@@ -271,7 +271,7 @@ let g:mkdp_auto_close = 0
 let g:mkdp_refresh_slow = 1
 
 let g:mkdp_theme = 'dark'
-let g:mkdp_markdown_css = ''
+let g:mkdp_markdown_css = stdpath("config") .. '/mds/markdown.css'
 let g:mkdp_highlight_css = ''
 let g:mkdp_preview_options = {
     \ 'mkit': { 'breaks': v:false },
