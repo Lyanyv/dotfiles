@@ -493,8 +493,9 @@ if exists("g:neovide")
     set lines=34 columns=108
     let g:neovide_remember_window_size = v:false
 
-    set linespace=1
-    set guifont=Monoid\ Nerd\ Font,NSimSun:h10:#e-subpixelantialias
+    " let g:neovide_text_gamma = 0.8
+    " let g:neovide_text_contrast = 0.2
+    set guifont=Monoid\ Nerd\ Font,NSimSun:h9:#e-alias:#h-full
 
     let g:neovide_opacity = 0.95
     let g:neovide_normal_opacity = 0.95
