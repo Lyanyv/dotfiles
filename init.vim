@@ -477,7 +477,7 @@ lua << EOF
 require("ibl").setup {
     viewport_buffer = { min = 1024 },
     indent = {
-        char = "┆", -- "▏",
+        char = "▏", -- "┆",
         highlight = {
             "Purple", "Blue", "Aqua", "Green", "Yellow", "Orange", "Red",
         },
