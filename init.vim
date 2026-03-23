@@ -48,21 +48,21 @@ endif
 call plug#begin()
 Plug 'junegunn/vim-plug'
 
-Plug 'sainnhe/gruvbox-material'
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_foreground = 'original'
-let g:gruvbox_material_statusline_style = 'original'
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
+Plug 'sainnhe/sonokai'
+let g:sonokai_better_performance = 1
+let g:sonokai_style = 'espresso'
+let g:sonokai_current_word = 'reverse'
+let g:sonokai_menu_selection_background = 'green'
+let g:sonokai_spell_foreground = 'colored'
+let g:sonokai_diagnostic_text_highlight = 1
+let g:sonokai_diagnostic_line_highlight = 0
+let g:sonokai_inlay_hints_background = 'dimmed'
 
-let g:gruvbox_material_transparent_background = 0
-let g:gruvbox_material_dim_inactive_windows = 1
-let g:gruvbox_material_visual = 'blue background'
-let g:gruvbox_material_current_word = 'reverse'
-let g:gruvbox_material_menu_selection_background = 'purple'
-let g:gruvbox_material_spell_foreground = 'colored'
-let g:gruvbox_material_diagnostic_text_highlight = 1
+let g:sonokai_dim_inactive_windows = 1
+let g:sonokai_disable_terminal_colors = 0
+
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 0
 
 Plug 'catgoose/nvim-colorizer.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -73,7 +73,7 @@ Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
 
 Plug 'godlygeek/tabular'
-Plug 'LunarWatcher/auto-pairs', {'tag': 'v4.0.1'}
+Plug 'LunarWatcher/auto-pairs'
 let g:AutoPairsDefaultDisableKeybinds = 1
 let g:AutoPairsCompatibleMaps = 0  " recommended
 let g:AutoPairsPrefix = ""
@@ -448,30 +448,25 @@ let loaded_gzip          = 0
 set background=dark
 " `LineNr`: bg = NonText's fg, fg = Normal's bg
 " be sure that ColorColumn and CursorLine/CursorColumn have the same highlight
-function s:gruvbox_material_custom()
-    let palette = gruvbox_material#get_palette(
-        \ g:gruvbox_material_background,
-        \ g:gruvbox_material_foreground, {})
-    call gruvbox_material#highlight('LineNr', palette.bg0, palette.bg5, 'bold')
-    call gruvbox_material#highlight('CursorLineNr', palette.fg0, palette.bg0, 'bold')
-    call gruvbox_material#highlight('CursorLine', palette.none, palette.bg_visual_blue)
-    call gruvbox_material#highlight('CursorColumn', palette.none, palette.bg_visual_blue)
-    call gruvbox_material#highlight('ColorColumn', palette.none, palette.bg_visual_blue)
+function s:sonokai_custom()
+    let palette = sonokai#get_palette(g:sonokai_style, {})
+    call sonokai#highlight('LineNr', palette.bg0, palette.bg4, 'bold')
+    call sonokai#highlight('CursorLineNr', palette.fg, palette.bg0, 'bold')
 
-    call gruvbox_material#highlight('CocVirtualText', palette.bg5, palette.none)
-    call gruvbox_material#highlight('VirtualTextError', palette.grey2, palette.bg_visual_red, 'underline')
-    call gruvbox_material#highlight('VirtualTextWarning', palette.grey2, palette.bg_visual_yellow, 'underline')
-    call gruvbox_material#highlight('VirtualTextInfo', palette.grey2, palette.bg_visual_blue, 'underline')
-    call gruvbox_material#highlight('VirtualTextHint', palette.grey2, palette.bg_visual_green, 'underline')
+    call sonokai#highlight('CocVirtualText', palette.bg4, palette.none)
+    call sonokai#highlight('VirtualTextError', palette.grey, palette.bg_red, 'underline')
+    call sonokai#highlight('VirtualTextWarning', palette.grey, palette.bg_yellow, 'underline')
+    call sonokai#highlight('VirtualTextInfo', palette.grey, palette.bg_blue, 'underline')
+    call sonokai#highlight('VirtualTextHint', palette.grey, palette.bg_purple, 'underline')
 
-    call gruvbox_material#highlight('HighlightedyankRegion', palette.none, palette.bg_diff_blue)
-    call gruvbox_material#highlight('JupyniumShortsighted', palette.none, palette.bg_dim)
+    call sonokai#highlight('Visual', palette.none, palette.bg_green)
+    call sonokai#highlight('JupyniumShortsighted', palette.none, palette.bg_dim)
 endfunction
-augroup GruvboxMaterialCustom
+augroup SonokaiCustom
     autocmd!
-    autocmd ColorScheme gruvbox-material call s:gruvbox_material_custom()
+    autocmd ColorScheme sonokai call s:sonokai_custom()
 augroup END
-colorscheme gruvbox-material
+colorscheme sonokai
 
 lua << EOF
 require("ibl").setup {
@@ -479,7 +474,7 @@ require("ibl").setup {
     indent = {
         char = "▏", -- "┆",
         highlight = {
-            "Purple", "Blue", "Aqua", "Green", "Yellow", "Orange", "Red",
+            "Purple", "Blue", "Green", "Yellow", "Orange", "Red",
         },
         repeat_linebreak = false,
     },
@@ -650,11 +645,13 @@ autocmd FileType tex command! -buffer Pdf2Svg
 set pumblend=30 winblend=30
 hi MatchParen ctermbg=24 guibg=#005F87
 hi Search ctermfg=15 ctermbg=32 guifg=#FFFFFF guibg=#0087D7
+hi HighlightedyankRegion ctermbg=DarkCyan guibg=DarkCyan
 " hi Cursor cterm=None gui=None ctermbg=36 guibg=#00BF9F
-hi Cursor cterm=None gui=None ctermbg=62 guibg=#6A5ACD
+" hi Cursor cterm=None gui=None ctermbg=62 guibg=#6A5ACD
+hi Cursor cterm=None gui=None ctermbg=181 guibg=#C9A9A6
 
 " highlight for treesitter
-hi @variable.parameter ctermfg=DarkCyan guifg=DarkCyan
+hi @variable.parameter ctermfg=LightMagenta guifg=LightMagenta
 
 " highlight for markdown
 hi! link @text.title1 markdownH1
