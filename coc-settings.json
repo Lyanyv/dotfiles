@@ -39,6 +39,12 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "signature.preferShownAbove": false,
   "signature.hideOnTextChange": true,
+  // floatConfig
+  "floatFactory.floatConfig": { "maxWidth": 160 },
+  "suggest.floatConfig": { "maxWidth": 160 },
+  "diagnostic.floatConfig": { "maxWidth": 160 },
+  "signature.floatConfig": { "maxWidth": 160 },
+  "hover.floatConfig": { "maxWidth": 160 },
 
   "list.floatPreview": true,
   "list.alignColumns": true,
