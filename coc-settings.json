@@ -169,7 +169,7 @@
   "texlab.build.args": [ "-pv" ],
   "texlab.forwardSearch.executable": "SumatraPDF",
   "texlab.forwardSearch.args": [
-    "-reuse-instance", "%p", "-forward-search", "%f", "%l"
+    "-reuse-instance", "-forward-search", "%f", "%l", "%p"
   ],
   "texlab.build.forwardSearchAfter": true,
   "texlab.chktex.onOpenAndSave": true,
